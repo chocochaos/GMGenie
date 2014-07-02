@@ -71,48 +71,52 @@ function GMGenie.Spy.processPin04(login, failedLogins, pin)
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin05(os, latency, email, pin)
+function GMGenie.Spy.processPin05(os, latency, pin)
     -- todo os
-    GMGenie.Spy.currentRequest["email"] = email;
     GMGenie.Spy.currentRequest["latency"] = latency;
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin06(ip, locked, pin)
+function GMGenie.Spy.processPin06(email, pin)
+    GMGenie.Spy.currentRequest["email"] = email;
+
+    GMGenie.Spy.addToCache(pin);
+end
+
+function GMGenie.Spy.processPin07(ip, locked, pin)
     GMGenie.Spy.currentRequest["ip"] = ip;
     -- todo locked
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin07(level, xpCurrent, xpMax, pin)
+function GMGenie.Spy.processPin08(level, pin)
     GMGenie.Spy.currentRequest["level"] = level;
-    -- todo xp
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin08(race, class, pin)
+function GMGenie.Spy.processPin09(race, class, pin)
     GMGenie.Spy.currentRequest["race"] = race;
     GMGenie.Spy.currentRequest["class"] = class;
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin09(alive, pin)
+function GMGenie.Spy.processPin10(alive, pin)
     -- todo alive
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin10(money, pin)
+function GMGenie.Spy.processPin11(money, pin)
     GMGenie.Spy.currentRequest["money"] = money;
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin11(map, area, zone, pin)
+function GMGenie.Spy.processPin12(map, area, zone, pin)
     GMGenie.Spy.currentRequest["location"] = map;
     if map ~= area then
         GMGenie.Spy.currentRequest["location"] = area .. ', ' .. GMGenie.Spy.currentRequest["location"];
@@ -124,26 +128,51 @@ function GMGenie.Spy.processPin11(map, area, zone, pin)
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin12(guild, guildId, pin)
+function GMGenie.Spy.processPin13(guild, guildId, pin)
     GMGenie.Spy.currentRequest["guild"] = '<' .. guild .. '> (' .. guildId .. ')';
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin13(guildRank, pin)
+function GMGenie.Spy.processPin14(guildRank, pin)
     GMGenie.Spy.currentRequest["guild"] = '"' .. guildRank .. '" of ' .. GMGenie.Spy.currentRequest["guild"];
 
     GMGenie.Spy.addToCache(pin);
 end
 
-function GMGenie.Spy.processPin14(playedTime, pin)
+function GMGenie.Spy.processPin15(note, pin)
+    -- todo note
+    GMGenie.Spy.addToCache(pin);
+end
+
+function GMGenie.Spy.processPin16(officerNote, pin)
+    -- todo officerNote
+    GMGenie.Spy.addToCache(pin);
+end
+
+function GMGenie.Spy.processPin17(playedTime, pin)
     GMGenie.Spy.currentRequest["playedTime"] = playedTime;
 
     GMGenie.Spy.addToCache(pin);
 
     GMGenie.Spy.waitingForPin = false;
+    GMGenie.Spy.waitingForMail = true;
+    Chronos.scheduleByName('mailinpinprotection', 2, GMGenie.Spy.abortWaitingForMail);
     GMGenie.Spy.resetBoxes();
     GMGenie_Spy_InfoWindow:Show();
+end
+
+function GMGenie.Spy.processPin18(read, total, pin)
+    GMGenie.Spy.addToCache(pin);
+
+    GMGenie.Spy.waitingForMail = false;
+    Chronos.unscheduleByName('mailinpinprotection');
+    GMGenie.Spy.resetBoxes();
+    GMGenie_Spy_InfoWindow:Show();
+end
+
+function GMGenie.Spy.abortWaitingForMail()
+    GMGenie.Spy.waitingForMail = false;
 end
 
 function GMGenie.Spy.resetBoxes()

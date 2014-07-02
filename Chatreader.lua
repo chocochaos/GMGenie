@@ -171,15 +171,21 @@ function ChatFrame_MessageEventHandler(self, event, ...)
                     local phase = string.match(arg1, "Phase: (.*)");
                     local account, accountId, gmLevel = string.match(arg1, "Account: (.*) %(ID: (.*)%), GMLevel: (.*)");
                     local login, failedLogins = string.match(arg1, "Last Login: (.*) %(Failed Logins: (.*)%)");
-                    local os, latency, email = string.match(arg1, "OS: (.*) %- Latency: (.*) ms %- Mail: (.*)");
+                    local os, latency = string.match(arg1, "OS: (.*) %- Latency: (.*) ms");
+                    local email = string.match(arg1, "Mail: (.*)");
+                    if not email then
+                        local email = string.match(arg1, "Email: (.*)");
+                    end
                     local ip, locked = string.match(arg1, "Last IP: (.*) %(Locked: (.*)%)");
-                    local level, xpCurrent, xpMax = string.match(arg1, "Level: (.*) %((.*)/(.*) XP");
+                    local level = string.match(arg1, "Level: ([0-9]+)");
                     local race, class = string.match(arg1, "Race: (.*), (.*)");
                     local alive = string.match(arg1, "Alive %?: (.*)");
                     local money = string.match(arg1, "Money: (.*)");
                     local map, area, zone = string.match(arg1, "Map: (.*), Area: (.*), Zone: (.*)");
                     local guild, guildId = string.match(arg1, "Guild: (.*) %(ID: (.*)%)");
                     local guildRank = string.match(arg1, "Rank: (.*)");
+                    local note = string.match(arg1, "Note: (.*)");
+                    local officerNote = string.match(arg1, "O. Note: (.*)");
                     local playedTime = string.match(arg1, "Played time: (.*)");
 
 
@@ -200,43 +206,55 @@ function ChatFrame_MessageEventHandler(self, event, ...)
                         ActionTaken = true;
                     end
                     if os then
-                        GMGenie.Spy.processPin05(os, latency, email, arg1);
+                        GMGenie.Spy.processPin05(os, latency, arg1);
+                        ActionTaken = true;
+                    end
+                    if email then
+                        GMGenie.Spy.processPin06(email, arg1);
                         ActionTaken = true;
                     end
                     if ip then
-                        GMGenie.Spy.processPin06(ip, locked, arg1);
+                        GMGenie.Spy.processPin07(ip, locked, arg1);
                         ActionTaken = true;
                     end
                     if level then
-                        GMGenie.Spy.processPin07(level, xpCurrent, xpMax, arg1);
+                        GMGenie.Spy.processPin08(level, arg1);
                         ActionTaken = true;
                     end
                     if race then
-                        GMGenie.Spy.processPin08(race, class, arg1);
+                        GMGenie.Spy.processPin09(race, class, arg1);
                         ActionTaken = true;
                     end
                     if alive then
-                        GMGenie.Spy.processPin09(alive, arg1);
+                        GMGenie.Spy.processPin10(alive, arg1);
                         ActionTaken = true;
                     end
                     if money then
-                        GMGenie.Spy.processPin10(money, arg1);
+                        GMGenie.Spy.processPin11(money, arg1);
                         ActionTaken = true;
                     end
                     if map then
-                        GMGenie.Spy.processPin11(map, area, zone, arg1);
+                        GMGenie.Spy.processPin12(map, area, zone, arg1);
                         ActionTaken = true;
                     end
                     if guild then
-                        GMGenie.Spy.processPin12(guild, guildId, arg1);
+                        GMGenie.Spy.processPin13(guild, guildId, arg1);
                         ActionTaken = true;
                     end
                     if guildRank then
-                        GMGenie.Spy.processPin13(guildRank, arg1);
+                        GMGenie.Spy.processPin14(guildRank, arg1);
+                        ActionTaken = true;
+                    end
+                    if note then
+                        GMGenie.Spy.processPin15(note, arg1);
+                        ActionTaken = true;
+                    end
+                    if officerNote then
+                        GMGenie.Spy.processPin16(officerNote, arg1);
                         ActionTaken = true;
                     end
                     if playedTime then
-                        GMGenie.Spy.processPin14(playedTime, arg1);
+                        GMGenie.Spy.processPin17(playedTime, arg1);
                         ActionTaken = true;
                     end
                 else
@@ -247,6 +265,14 @@ function ChatFrame_MessageEventHandler(self, event, ...)
                         ActionTaken = true;
                     end
                 end
+            end
+        end
+
+        if GMGenie.Spy.waitingForMail then
+            local read, total = string.match(arg1, "Mails: (.*) Read/(.*) Total");
+            if read then
+                GMGenie.Spy.processPin18(read, total, arg1);
+                ActionTaken = true;
             end
         end
 
