@@ -25,7 +25,7 @@ end
 function GMGenie.Macros.Tele.addToUnitMenu()
     UnitPopupMenus["GMGenie_Tele"] = {};
     local TeleTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.tele);
-    for index, name in pairs(TeleTemp) do
+    for name in pairs(TeleTemp) do
         table.insert(UnitPopupMenus["GMGenie_Tele"], "GMGenie_Tele_" .. name);
         UnitPopupButtons["GMGenie_Tele_" .. name] = { text = name, dist = 0, };
     end
@@ -34,7 +34,7 @@ function GMGenie.Macros.Tele.addToUnitMenu()
     UnitPopupButtons["GMGenie_TeleOptions"] = { text = "Manage macros", dist = 0, };
 end
 
-function GMGenie.Macros.Tele.loadDropdown(self, level)
+function GMGenie.Macros.Tele.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -43,7 +43,7 @@ function GMGenie.Macros.Tele.loadDropdown(self, level)
     UIDropDownMenu_AddButton(info, level);
 
     local TeleTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.tele);
-    for index, name in pairs(TeleTemp) do
+    for name in pairs(TeleTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;

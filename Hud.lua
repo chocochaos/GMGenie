@@ -91,7 +91,7 @@ function GMGenie.Hud.flyStatus(status)
     end
 end
 
-function GMGenie.Hud.readNotice(self, event, notice)
+function GMGenie.Hud.readNotice(_, event, notice)
     if event == "UI_ERROR_MESSAGE" then
         if notice == "GM mode is ON" then
             GMGenie.Hud.gmStatus(true);

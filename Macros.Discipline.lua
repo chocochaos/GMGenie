@@ -30,7 +30,7 @@ end
 function GMGenie.Macros.Discipline.Mute.addToUnitMenu()
     UnitPopupMenus["GMGenie_Mute"] = {};
     local MuteTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.mute);
-    for index, name in pairs(MuteTemp) do
+    for name in pairs(MuteTemp) do
         table.insert(UnitPopupMenus["GMGenie_Mute"], "GMGenie_Mute_" .. name);
         UnitPopupButtons["GMGenie_Mute_" .. name] = { text = name, dist = 0, };
     end
@@ -39,7 +39,7 @@ function GMGenie.Macros.Discipline.Mute.addToUnitMenu()
     UnitPopupButtons["GMGenie_DisciplineOptions"] = { text = "Manage macros", dist = 0, };
 end
 
-function GMGenie.Macros.Discipline.Mute.loadDropdown(self, level)
+function GMGenie.Macros.Discipline.Mute.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -48,7 +48,7 @@ function GMGenie.Macros.Discipline.Mute.loadDropdown(self, level)
     UIDropDownMenu_AddButton(info, level);
 
     local MuteTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.mute);
-    for index, name in pairs(MuteTemp) do
+    for name in pairs(MuteTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;
@@ -87,7 +87,7 @@ end
 function GMGenie.Macros.Discipline.CharBan.addToUnitMenu()
     UnitPopupMenus["GMGenie_CharBan"] = {};
     local CharBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.charBan);
-    for index, name in pairs(CharBanTemp) do
+    for name in pairs(CharBanTemp) do
         table.insert(UnitPopupMenus["GMGenie_CharBan"], "GMGenie_CharBan_" .. name);
         UnitPopupButtons["GMGenie_CharBan_" .. name] = { text = name, dist = 0, };
     end
@@ -96,7 +96,7 @@ function GMGenie.Macros.Discipline.CharBan.addToUnitMenu()
     UnitPopupButtons["GMGenie_DisciplineOptions"] = { text = "Manage macros", dist = 0, };
 end
 
-function GMGenie.Macros.Discipline.CharBan.loadDropdown(self, level)
+function GMGenie.Macros.Discipline.CharBan.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -105,7 +105,7 @@ function GMGenie.Macros.Discipline.CharBan.loadDropdown(self, level)
     UIDropDownMenu_AddButton(info, level);
 
     local CharBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.charBan);
-    for index, name in pairs(CharBanTemp) do
+    for name in pairs(CharBanTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;
@@ -144,7 +144,7 @@ end
 function GMGenie.Macros.Discipline.AccBan.addToUnitMenu()
     UnitPopupMenus["GMGenie_AccBan"] = {};
     local AccBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.accBan);
-    for index, name in pairs(AccBanTemp) do
+    for name in pairs(AccBanTemp) do
         table.insert(UnitPopupMenus["GMGenie_AccBan"], "GMGenie_AccBan_" .. name);
         UnitPopupButtons["GMGenie_AccBan_" .. name] = { text = name, dist = 0, };
     end
@@ -153,7 +153,7 @@ function GMGenie.Macros.Discipline.AccBan.addToUnitMenu()
     UnitPopupButtons["GMGenie_DisciplineOptions"] = { text = "Manage macros", dist = 0, };
 end
 
-function GMGenie.Macros.Discipline.AccBan.loadDropdown(self, level)
+function GMGenie.Macros.Discipline.AccBan.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -162,7 +162,7 @@ function GMGenie.Macros.Discipline.AccBan.loadDropdown(self, level)
     UIDropDownMenu_AddButton(info, level);
 
     local AccBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.accBan);
-    for index, name in pairs(AccBanTemp) do
+    for name in pairs(AccBanTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;
@@ -232,7 +232,7 @@ end
 function GMGenie.Macros.Discipline.IpBan.addToUnitMenu()
     UnitPopupMenus["GMGenie_IpBan"] = {};
     local IpBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.ipBan);
-    for index, name in pairs(IpBanTemp) do
+    for name in pairs(IpBanTemp) do
         table.insert(UnitPopupMenus["GMGenie_IpBan"], "GMGenie_IpBan_" .. name);
         UnitPopupButtons["GMGenie_IpBan_" .. name] = { text = name, dist = 0, };
     end
@@ -241,7 +241,7 @@ function GMGenie.Macros.Discipline.IpBan.addToUnitMenu()
     UnitPopupButtons["GMGenie_DisciplineOptions"] = { text = "Manage macros", dist = 0, };
 end
 
-function GMGenie.Macros.Discipline.IpBan.loadDropdown(self, level)
+function GMGenie.Macros.Discipline.IpBan.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -250,7 +250,7 @@ function GMGenie.Macros.Discipline.IpBan.loadDropdown(self, level)
     UIDropDownMenu_AddButton(info, level);
 
     local IpBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.ipBan);
-    for index, name in pairs(IpBanTemp) do
+    for name in pairs(IpBanTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;

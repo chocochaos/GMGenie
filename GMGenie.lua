@@ -19,7 +19,7 @@ function GMGenie.pairsByKeys(t, f)
         table.insert(a, n);
     end
     table.sort(a, f);
-    for name, value in pairs(a) do
+    for value in pairs(a) do
         table.insert(b, t[value]);
     end
     return b;
@@ -32,7 +32,7 @@ function GMGenie.pairsByKeys2(t, f)
         table.insert(a, n);
     end
     table.sort(a, f);
-    for name, value in pairs(a) do
+    for value in pairs(a) do
         table.insert(b, value);
     end
     return b;

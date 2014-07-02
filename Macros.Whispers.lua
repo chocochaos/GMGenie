@@ -21,7 +21,7 @@ function GMGenie.Macros.Whispers.run(name, title)
         GMGenie_Macros_Whispers_SubjectPopup_Subject:SetFocus();
     else
         local args = { strsplit("\n", msg) };
-        for index, text in pairs(args) do
+        for text in pairs(args) do
             SendChatMessage(text, "WHISPER", nil, name);
         end
     end
@@ -41,7 +41,7 @@ function GMGenie.Macros.Whispers.sendWithSubject()
 
     local msg = string.gsub(GMGenie.Macros.Whispers.curWhisperMessage, "SUBJECT", subject);
     local args = { strsplit("\n", msg) };
-    for index, text in pairs(args) do
+    for text in pairs(args) do
         SendChatMessage(text, "WHISPER", nil, GMGenie.Macros.Whispers.curName);
     end
 
@@ -52,7 +52,7 @@ function GMGenie.Macros.Whispers.addToUnitMenu()
     UnitPopupMenus["GMGenie_Whispers"] = {};
 
     local whispersTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.whispers);
-    for index, name in pairs(whispersTemp) do
+    for name in pairs(whispersTemp) do
         table.insert(UnitPopupMenus["GMGenie_Whispers"], "GMGenie_Whispers_" .. name);
         UnitPopupButtons["GMGenie_Whispers_" .. name] = { text = name, dist = 0, };
     end
@@ -61,7 +61,7 @@ function GMGenie.Macros.Whispers.addToUnitMenu()
     UnitPopupButtons["GMGenie_WhisperOptions"] = { text = "Manage macros", dist = 0, };
 end
 
-function GMGenie.Macros.Whispers.loadDropdown(self, level)
+function GMGenie.Macros.Whispers.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -70,7 +70,7 @@ function GMGenie.Macros.Whispers.loadDropdown(self, level)
     UIDropDownMenu_AddButton(info, level);
 
     local whispersTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.whispers);
-    for index, name in pairs(whispersTemp) do
+    for name in pairs(whispersTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;

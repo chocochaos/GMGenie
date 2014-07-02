@@ -27,7 +27,7 @@ GMGenie.Spawns.Objects = {};
 
 function GMGenie.Spawns.Objects.loadOptionsDropdown()
     local objectsTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.objects);
-    for index, name in pairs(objectsTemp) do
+    for name in pairs(objectsTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;
@@ -85,7 +85,7 @@ GMGenie.Spawns.Npcs = {};
 
 function GMGenie.Spawns.Npcs.loadOptionsDropdown()
     local npcsTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.npcs);
-    for index, name in pairs(npcsTemp) do
+    for name in pairs(npcsTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;

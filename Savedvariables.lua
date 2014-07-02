@@ -34,7 +34,7 @@ function GMGenie.loadSettings()
 end
 
 function GMGenie.setDefault(names)
-    for i, name in ipairs(names) do
+    for name in ipairs(names) do
         GMGenie_SavedVars[name] = GMGenie.defaultSettings[name];
     end
 end

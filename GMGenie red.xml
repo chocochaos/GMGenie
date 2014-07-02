@@ -118,7 +118,7 @@
                     <BackgroundInsets>
                         <AbsInset left="3" right="3" top="3" bottom="3"/>
                     </BackgroundInsets>
-                    <Color r="0" g="0" b="0" a="10"/>
+                    <Color r="0" g="0" b="0" a="1"/>
                 </Backdrop>
                 <Scripts>
                     <OnLoad>

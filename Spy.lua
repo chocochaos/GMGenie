@@ -171,7 +171,7 @@ function GMGenie.Spy.resetBoxes()
     GMGenie_Spy_InfoWindow_Location_Location:SetCursorPosition(0);
 end
 
-function GMGenie.Spy.loadDropdown(self, level)
+function GMGenie.Spy.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -255,7 +255,7 @@ end
 local Saved_SetItemRef = SetItemRef;
 function SetItemRef(link, text, button, chatFrame)
     if (strsub(link, 1, 9) == "anticheat") then
-        local type, name = strsplit(":", link);
+        local name = strsplit(":", link);
         if (button == "LeftButton") then
             GMGenie.Spy.antiCheat(name);
         elseif (button == "RightButton") then

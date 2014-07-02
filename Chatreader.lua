@@ -167,7 +167,7 @@ function ChatFrame_MessageEventHandler(self, event, ...)
                 GMGenie.Macros.Discipline.IpBan.waitingForPin = false;
             else
                 if GMGenie.Spy.waitingForPin then
-                    local offline, name1, name2, guid = string.match(arg1, "Player  ?(.*) %|cffffffff%|Hplayer:(.*)%|h%[(.*)%]%|h%|r %(guid: (.*)%)");
+                    local offline, name1, _, guid = string.match(arg1, "Player  ?(.*) %|cffffffff%|Hplayer:(.*)%|h%[(.*)%]%|h%|r %(guid: (.*)%)");
                     local phase = string.match(arg1, "Phase: (.*)");
                     local account, accountId, gmLevel = string.match(arg1, "Account: (.*) %(ID: (.*)%), GMLevel: (.*)");
                     local login, failedLogins = string.match(arg1, "Last Login: (.*) %(Failed Logins: (.*)%)");

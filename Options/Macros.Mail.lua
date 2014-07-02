@@ -35,7 +35,7 @@ function GMGenie.Macros.Mail.checkMacroLength()
     if #lines > 1 then
         maxlength = maxlength - 4;
     end
-    for index, line in pairs(lines) do
+    for line in pairs(lines) do
         if string.len(line) > maxlength then
             GMGenie_Macros_Mail_OptionsWindow_Macro_Frame_Text:SetTextColor(255, 0, 0);
         else
@@ -48,7 +48,7 @@ GMGenie.Macros.Mail.currentEditing = nil;
 
 function GMGenie.Macros.Mail.loadOptionsDropdown()
     local MailTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.mail);
-    for index, name in pairs(MailTemp) do
+    for name in pairs(MailTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;

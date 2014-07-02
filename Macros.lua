@@ -68,7 +68,7 @@ function GMGenie.Macros.onLoad()
     table.insert(GMGenie.Macros.menuItems, "IpBan");
     GMGenie.Macros.Discipline.IpBan.addToUnitMenu();
 
-    for i, button in ipairs(GMGenie.Macros.menuItems) do
+    for button in ipairs(GMGenie.Macros.menuItems) do
         table.insert(UnitPopupMenus["PLAYER"], #UnitPopupMenus["PLAYER"] - 1, "GMGenie_" .. button);
         table.insert(UnitPopupMenus["FRIEND"], #UnitPopupMenus["FRIEND"] - 1, "GMGenie_" .. button);
         table.insert(UnitPopupMenus["PARTY"], #UnitPopupMenus["PARTY"] - 1, "GMGenie_" .. button);
