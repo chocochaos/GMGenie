@@ -13,12 +13,18 @@ GM Genie is not and is never going to be a collection of buttons just to elimina
 
 
 
-Download
+Installation Instructions
 =======
 
 **[Download most recent release (0.7.2).](http://www.chocochaos.com/gmgenie/GMGenie%200.7.2.zip)**
 
 **[Download older versions.](http://www.chocochaos.com/gmgenie/old/)**
+
+Download the addon using one of the links above and extract it to the interface/addons directory in your WoW installation. When logging in, the addon should be enabled by default.
+
+**Supported emulators:** TrinityCore (3.3.5 and 4.3.4)
+**Supported client versions:** 3.3.5 and 4.3.4
+**Supported client locales:** enUS and enGB
 
 
 
