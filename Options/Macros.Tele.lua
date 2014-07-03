@@ -24,7 +24,7 @@ GMGenie.Macros.Tele.currentEditing = nil;
 
 function GMGenie.Macros.Tele.loadOptionsDropdown()
     local TeleTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.tele);
-    for name in pairs(TeleTemp) do
+    for _, name in pairs(TeleTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;

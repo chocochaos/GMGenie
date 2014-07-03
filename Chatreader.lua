@@ -174,7 +174,7 @@ function ChatFrame_MessageEventHandler(self, event, ...)
                     local os, latency = string.match(arg1, "OS: (.*) %- Latency: (.*) ms");
                     local email = string.match(arg1, "Mail: (.*)");
                     if not email then
-                        local email = string.match(arg1, "Email: (.*)");
+                        email = string.match(arg1, "Email: (.*)");
                     end
                     local ip, locked = string.match(arg1, "Last IP: (.*) %(Locked: (.*)%)");
                     local level = string.match(arg1, "Level: ([0-9]+)");

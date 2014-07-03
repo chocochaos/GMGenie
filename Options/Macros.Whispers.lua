@@ -31,7 +31,7 @@ function GMGenie.Macros.Whispers.checkMacroLength()
     local macro = string.gsub(macro, "NAME", "abcdefghijkl");
     local lines = { strsplit("\n", macro) };
 
-    for line in pairs(lines) do
+    for _, line in pairs(lines) do
         if string.len(line) > 255 then
             GMGenie_Macros_Whispers_OptionsWindow_Macro_Frame_Text:SetTextColor(255, 0, 0);
         else
@@ -45,7 +45,7 @@ GMGenie.Macros.Whispers.currentEditing = nil;
 
 function GMGenie.Macros.Whispers.loadOptionsDropdown()
     local whispersTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.whispers);
-    for name in pairs(whispersTemp) do
+    for _, name in pairs(whispersTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;

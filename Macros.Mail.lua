@@ -36,7 +36,7 @@ end
 function GMGenie.Macros.Mail.addToUnitMenu()
     UnitPopupMenus["GMGenie_Mail"] = {};
     local MailTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.mail);
-    for name in pairs(MailTemp) do
+    for _, name in pairs(MailTemp) do
         table.insert(UnitPopupMenus["GMGenie_Mail"], "GMGenie_Mail_" .. name);
         UnitPopupButtons["GMGenie_Mail_" .. name] = { text = name, dist = 0, };
     end
@@ -54,7 +54,7 @@ function GMGenie.Macros.Mail.loadDropdown(_, level)
     UIDropDownMenu_AddButton(info, level);
 
     local MailTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.mail);
-    for name in pairs(MailTemp) do
+    for _, name in pairs(MailTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;

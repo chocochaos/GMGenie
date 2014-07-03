@@ -284,7 +284,7 @@ end
 local Saved_SetItemRef = SetItemRef;
 function SetItemRef(link, text, button, chatFrame)
     if (strsub(link, 1, 9) == "anticheat") then
-        local name = strsplit(":", link);
+        local _, name = strsplit(":", link);
         if (button == "LeftButton") then
             GMGenie.Spy.antiCheat(name);
         elseif (button == "RightButton") then

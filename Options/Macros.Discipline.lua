@@ -30,7 +30,7 @@ GMGenie.Macros.Discipline.Mute.currentEditing = nil;
 
 function GMGenie.Macros.Discipline.Mute.loadOptionsDropdown()
     local MuteTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.mute);
-    for name in pairs(MuteTemp) do
+    for _, name in pairs(MuteTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;
@@ -98,7 +98,7 @@ GMGenie.Macros.Discipline.CharBan.currentEditing = nil;
 
 function GMGenie.Macros.Discipline.CharBan.loadOptionsDropdown()
     local CharBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.charBan);
-    for name in pairs(CharBanTemp) do
+    for _, name in pairs(CharBanTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;
@@ -166,7 +166,7 @@ GMGenie.Macros.Discipline.AccBan.currentEditing = nil;
 
 function GMGenie.Macros.Discipline.AccBan.loadOptionsDropdown()
     local AccBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.accBan);
-    for name in pairs(AccBanTemp) do
+    for _, name in pairs(AccBanTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;
@@ -234,7 +234,7 @@ GMGenie.Macros.Discipline.IpBan.currentEditing = nil;
 
 function GMGenie.Macros.Discipline.IpBan.loadOptionsDropdown()
     local IpBanTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.ipBan);
-    for name in pairs(IpBanTemp) do
+    for _, name in pairs(IpBanTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.text = name;
         info.value = name;

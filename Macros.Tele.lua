@@ -25,7 +25,7 @@ end
 function GMGenie.Macros.Tele.addToUnitMenu()
     UnitPopupMenus["GMGenie_Tele"] = {};
     local TeleTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.tele);
-    for name in pairs(TeleTemp) do
+    for _, name in pairs(TeleTemp) do
         table.insert(UnitPopupMenus["GMGenie_Tele"], "GMGenie_Tele_" .. name);
         UnitPopupButtons["GMGenie_Tele_" .. name] = { text = name, dist = 0, };
     end
@@ -43,7 +43,7 @@ function GMGenie.Macros.Tele.loadDropdown(_, level)
     UIDropDownMenu_AddButton(info, level);
 
     local TeleTemp = GMGenie.pairsByKeys2(GMGenie_SavedVars.tele);
-    for name in pairs(TeleTemp) do
+    for _, name in pairs(TeleTemp) do
         local info = UIDropDownMenu_CreateInfo();
         info.hasArrow = false;
         info.notCheckable = true;
