@@ -1,11 +1,11 @@
-**[Download most recent release (0.7.2).](http://www.chocochaos.com/gmgenie/GMGenie%200.7.2.zip)**
-
-
-
-About Game Master Genie
+Game Master Genie
 =======
 
-![Screenshot of GM Genie](http://chocochaos.com/gmgenie/GMGenie%200.7.jpg)
+
+About GM Genie
+-------
+
+[![Screenshot of GM Genie](http://www.chocochaos.com/gmgenie/GMGenie%200.7.thumb.jpg)](http://chocochaos.com/gmgenie/GMGenie%200.7.jpg)
 
 GM Genie is an all-round GM addon for Trinitycore, aimed at making common tasks easier and quicker to accomplish. It provides tools for managing tickets, interacting with players on the server, building/spawning and much much more.
 
@@ -14,11 +14,11 @@ GM Genie is not and is never going to be a collection of buttons just to elimina
 
 
 Installation Instructions
-=======
+-------
 
-**[Download most recent release (0.7.2).](http://www.chocochaos.com/gmgenie/GMGenie%200.7.2.zip)**
-
-**[Download older versions.](http://www.chocochaos.com/gmgenie/old/)**
+*   **[Download most recent release (0.7.3).](http://www.chocochaos.com/gmgenie/GMGenie%200.7.3.zip)**
+*   **[Download previous release (0.7.2)](http://www.chocochaos.com/gmgenie/GMGenie%200.7.2.zip)**, for servers that still use the old playerinfo format (not updated for >1 year).
+*   **[Download older versions.](http://www.chocochaos.com/gmgenie/old/)**
 
 Download the addon using one of the links above and extract it to the interface/addons directory in your WoW installation. When logging in, the addon should be enabled by default.
 
@@ -29,7 +29,7 @@ Download the addon using one of the links above and extract it to the interface/
 
 
 Current Functionaility
-=======
+-------
 
 *   **Hud aka the main window**
      Shows the amount of open tickets, both online and offline. Shows gm status and allows changing it. And provides quick access to the ticket and builder interface.
@@ -80,7 +80,7 @@ The addon is released under the GPL (v3), so feel free to modify, redistribute o
 
 
 Reposts and modifications
-=======
+-------
 
 Since GM Genie is under an open source license, any modifications and redistributions of the addon are explicitely allowed, as long as copyright and license notices remain intact.
 
@@ -93,18 +93,16 @@ It's not a requirement to inform me, but I would appreciate it =)
 
 
 Changelog
-=======
-
-Version 0.7.3
 -------
+
+### Version 0.7.3
 
 *   Small changes and fixes:
     -   Code cleanup in several areas.
     -   Fixed the spy window (the new TrinityCore output format broke it).
     -   Security fix for ip banning functionality.
 
-Version 0.7.2
--------
+### Version 0.7.2
 
 *   Cataclysm (up until 4.3.4) is now supported. Some quick testing has been done, but there may also be some issues that I missed. Consider cataclysm support to be in beta for now. Also, please note that the addon should still work fine in Wrath of the Lich King.
     -   Replaced all references to global variable this, event and arg1 with something else that does work.
@@ -114,14 +112,12 @@ Version 0.7.2
 *   Small changes and fixes
     -   Fixed a small lua error on first load of the addon (related to the minimap button position).
 
-Version 0.7.1
--------
+### Version 0.7.1
 
 *   Small changes and fixes
     -   When there is a large amount of offline tickets online tickets will now show up properly once again.
 
-Version 0.7
--------
+### Version 0.7
 
 *   General changes:
     -   New hud, replacing the old minimap menu. This hud also shows gm/chat/visibility/whisper/fly/speed status, and allows changing it.
@@ -142,14 +138,12 @@ Version 0.7
     -   Latencies of 1k and higher now show up in red. Stripped the ms of the latency so that larger numbers fit in.
     -   Fixed using /spy without a name (using target instead when no name is specified).
 
-Version 0.6.1
--------
+### Version 0.6.1
 
 *   Small changes and fixes
     -   Viewing ticket comments bugged out for tickets with multiple lines of text.
 
-Version 0.6
--------
+### Version 0.6
 
 *   Major visible changes
     -   Ticket comment and assign/unassign fully fixed and implemented.
@@ -161,8 +155,7 @@ Version 0.6
     -   When pressing enter or escape in a text box it now automatically looses focus.
     -   Fixed all lua errors while tabbing through text boxes in the settings.
 
-Version 0.5
--------
+### Version 0.5
 
 *   Major visible changes:
     -   Added teleport macros.
@@ -181,14 +174,12 @@ Version 0.5
     -   Fixed a lua error when trying to open a ticket while the list was being refreshed.
     -   Fixed the auto-refresh of the ticket window and count.
 
-Version 0.3.1
--------
+### Version 0.3.1
 
 *   Small changes and fixes
     -   Fixed a bug where dropdowns were loaded before checking saved variables, resulting in LUA errors is the defaults needed to be loaded.
 
-Version 0.3
--------
+### Version 0.3
 
 *   Major visible changes:
     -   Added several quick commands (revive, appear, summon, spy) on right clicking someone's name.
@@ -201,7 +192,6 @@ Version 0.3
     -   Load saved variabled in Savedvariables.lua and allow setting defaults in that file (this allows creating a default preset for a server-specific distribution of GM Genie).
     -   Big code cleanup in several areas. Consistent naming for variables and functions, as far as possible without creating unnescessary extra variables.
 
-Version 0.2 and older
--------
+### Version 0.2 and older
 
 No changelogs kept.
