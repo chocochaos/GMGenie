@@ -16,9 +16,9 @@ GM Genie is not and is never going to be a collection of buttons just to elimina
 Installation Instructions
 -------
 
-*   **[Download most recent release (0.7.3).](http://www.chocochaos.com/gmgenie/GMGenie%200.7.3.zip)**
-*   **[Download previous release (0.7.2)](http://www.chocochaos.com/gmgenie/GMGenie%200.7.2.zip)**, for servers that still use the old playerinfo format (not updated for >1 year).
-*   **[Download older versions.](http://www.chocochaos.com/gmgenie/old/)**
+*   **[Download most recent release (0.7.3).](https://www.chocochaos.com/gmgenie/GMGenie%200.7.3.zip)**
+*   **[Download previous release (0.7.2)](https://www.chocochaos.com/gmgenie/GMGenie%200.7.2.zip)**, for servers that still use the old playerinfo format (not updated for >1 year).
+*   **[Download older versions.](https://www.chocochaos.com/gmgenie/old/)**
 
 Download the addon using one of the links above and extract it to the interface/addons directory in your WoW installation. When logging in, the addon should be enabled by default.
 
