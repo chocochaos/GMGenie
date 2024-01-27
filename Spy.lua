@@ -118,11 +118,11 @@ end
 
 function GMGenie.Spy.processPin12(map, area, zone, pin)
     GMGenie.Spy.currentRequest["location"] = map;
-    if map ~= area then
-        GMGenie.Spy.currentRequest["location"] = area .. ', ' .. GMGenie.Spy.currentRequest["location"];
-    end
     if string.upper(zone) ~= '<UNKNOWN>' then
         GMGenie.Spy.currentRequest["location"] = zone .. ', ' .. GMGenie.Spy.currentRequest["location"];
+    end
+    if area and map ~= area then
+        GMGenie.Spy.currentRequest["location"] = area .. ', ' .. GMGenie.Spy.currentRequest["location"];
     end
 
     GMGenie.Spy.addToCache(pin);
