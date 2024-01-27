@@ -161,27 +161,67 @@ function ChatFrame_MessageEventHandler(self, event, ...)
             end
         end
 
-        if GMGenie.Spy.waitingForPin or GMGenie.Macros.Discipline.IpBan.waitingForPin then
+        if GMGenie.Spy.waitingForPin or GMGenie.Macros.Discipline.IpBan.waitingForPin or GMGenie.Hud.waitingForPin then
             if string.find(arg1, "Player not found!") then
                 GMGenie.Spy.waitingForPin = false;
                 GMGenie.Macros.Discipline.IpBan.waitingForPin = false;
+                GMGenie.Hud.waitingForPin = false;
             else
-                if GMGenie.Spy.waitingForPin then
+                if GMGenie.Hud.waitingForPin then
                     local offline, name1, _, guid = string.match(arg1, "Player  ?(.*) %|cffffffff%|Hplayer:(.*)%|h%[(.*)%]%|h%|r %(guid: (.*)%)");
-                    local phase = string.match(arg1, "Phase: (.*)");
+                    local gmModeActive, phase = string.match(arg1, "(GM Mode active), Phase: (.*)");
+                    if not phase then
+                        phase = string.match(arg1, "Phase: (.*)");
+                    end
                     local account, accountId, gmLevel = string.match(arg1, "Account: (.*) %(ID: (.*)%), GMLevel: (.*)");
                     local login, failedLogins = string.match(arg1, "Last Login: (.*) %(Failed Logins: (.*)%)");
-                    local os, latency = string.match(arg1, "OS: (.*) %- Latency: (.*) ms");
-                    local email = string.match(arg1, "Mail: (.*)");
-                    if not email then
-                        email = string.match(arg1, "Email: (.*)");
-                    end
+                    local os_, latency = string.match(arg1, "OS: (.*) %- Latency: (.*) ms");
+                    local email = string.match(arg1, "%- Email: (.*)");
                     local ip, locked = string.match(arg1, "Last IP: (.*) %(Locked: (.*)%)");
                     local level = string.match(arg1, "Level: ([0-9]+)");
                     local race, class = string.match(arg1, "Race: (.*), (.*)");
                     local alive = string.match(arg1, "Alive %?: (.*)");
                     local money = string.match(arg1, "Money: (.*)");
-                    local map, area, zone = string.match(arg1, "Map: (.*), Area: (.*), Zone: (.*)");
+                    local map, zone, area = string.match(arg1, "Map: (.*), Zone: (.*), Area: (.*)");
+                    if not map then
+                        map, zone = string.match(arg1, "Map: (.*), Zone: (.*)");
+                    end
+                    local guild, guildId = string.match(arg1, "Guild: (.*) %(ID: (.*)%)");
+                    local guildRank = string.match(arg1, "Rank: (.*)");
+                    local note = string.match(arg1, "Note: (.*)");
+                    local officerNote = string.match(arg1, "O. Note: (.*)");
+                    local playedTime = string.match(arg1, "Played time: (.*)");
+
+
+                    if gmModeActive then
+                        GMGenie.Hud.gmStatus(true);
+                    end
+
+                    -- a whole lot of nothing, to hide all these messages
+                    if offline or phase or account or login or os_ or email or ip or level or race or alive or money or map or guild or guildRank or note then
+                        ActionTaken = true;
+                    end
+                    if playedTime then
+                        ActionTaken = true;
+                        GMGenie.Hud.waitingForPin = false;
+                    end
+                elseif GMGenie.Spy.waitingForPin then
+                    local offline, name1, _, guid = string.match(arg1, "Player  ?(.*) %|cffffffff%|Hplayer:(.*)%|h%[(.*)%]%|h%|r %(guid: (.*)%)");
+                    -- TODO: use the below to figure out the GM status
+                    local phase = string.match(arg1, "Phase: (.*)");
+                    local account, accountId, gmLevel = string.match(arg1, "Account: (.*) %(ID: (.*)%), GMLevel: (.*)");
+                    local login, failedLogins = string.match(arg1, "Last Login: (.*) %(Failed Logins: (.*)%)");
+                    local os_, latency = string.match(arg1, "OS: (.*) %- Latency: (.*) ms");
+                    local email = string.match(arg1, "%- Email: (.*)");
+                    local ip, locked = string.match(arg1, "Last IP: (.*) %(Locked: (.*)%)");
+                    local level = string.match(arg1, "Level: ([0-9]+)");
+                    local race, class = string.match(arg1, "Race: (.*), (.*)");
+                    local alive = string.match(arg1, "Alive %?: (.*)");
+                    local money = string.match(arg1, "Money: (.*)");
+                    local map, zone, area = string.match(arg1, "Map: (.*), Zone: (.*), Area: (.*)");
+                    if not map then
+                        map, zone = string.match(arg1, "Map: (.*), Zone: (.*)");
+                    end
                     local guild, guildId = string.match(arg1, "Guild: (.*) %(ID: (.*)%)");
                     local guildRank = string.match(arg1, "Rank: (.*)");
                     local note = string.match(arg1, "Note: (.*)");
@@ -205,8 +245,8 @@ function ChatFrame_MessageEventHandler(self, event, ...)
                         GMGenie.Spy.processPin04(login, failedLogins, arg1);
                         ActionTaken = true;
                     end
-                    if os then
-                        GMGenie.Spy.processPin05(os, latency, arg1);
+                    if os_ then
+                        GMGenie.Spy.processPin05(os_, latency, arg1);
                         ActionTaken = true;
                     end
                     if email then

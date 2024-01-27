@@ -9,7 +9,7 @@
 ## Title: GM Genie
 ## Note: Game Master Genie v0.7.3 by Chocochaos
 ## Author: Chocochaos
-## Version: 0.7.3
+## Version: 0.7.3-AzerothCore
 ## DefaultState: Enabled
 ## SavedVariables: GMGenie_SavedVars
 GMGenie.xml
