@@ -20,7 +20,12 @@ Installation Instructions
 
 Download the addon using GitHub's green "code" button above and extract it to the interface/addons directory in your WoW installation. Make sure the folder is called `GMGenie` When logging in, the addon should be enabled by default.
 
-**Supported emulators:** TrinityCore (3.3.5 and 4.3.4)
+**Supported emulators:** 
+
+AzeorothCore 3.3.5a
+
+TrinityCore (3.3.5 and 4.3.4)
+
 **Supported client versions:** 3.3.5 and 4.3.4
 **Supported client locales:** enUS and enGB
 
@@ -88,10 +93,17 @@ You can drop me an e-mail at gmgenie [at] chocochaos [dot] com
 
 It's not a requirement to inform me, but I would appreciate it =)
 
-
+Authors
+-------
+- Duskhaven Reforged Team - Updated to work with AzerothCore
+- Chocochaos - Original Author
 
 Changelog
 -------
+
+### Version 1.0.0-AzerothCore
+
+*   Updated to work correctly with AzerothCore by Duskhaven Reforged Team (https://github.com/azerothcore/GMGenie/commit/db5446e717fe010aeb7bec3300a75a13bbe3d4f1)
 
 ### Version 0.7.3
 

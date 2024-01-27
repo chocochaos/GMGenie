@@ -60,7 +60,7 @@ function GMGenie.onLoad()
     GMGenie.Tickets.onLoad();
 
     -- Please do not remove the copyright notice, it would be a violation of the gpl.
-    GMGenie.showGMMessage("GMGenie 0.7.3 by Chocochaos ((c) 2011-2014) modified by Duskhaven Reforged Team");
+    GMGenie.showGMMessage("GMGenie 1.0.0 by Chocochaos ((c) 2011-2014) modified for AzerothCore. Latest version adopted to AzerothCore can be found here: https://github.com/azerothcore/GMGenie/tags");
 end
 
 local frame = CreateFrame("FRAME");
