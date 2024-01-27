@@ -18,7 +18,7 @@ GM Genie is not and is never going to be a collection of buttons just to elimina
 Installation Instructions
 -------
 
-Download the addon using GitHub's green "code" button above and extract it to the interface/addons directory in your WoW installation. Make sure the folder is called `GMGenie` When logging in, the addon should be enabled by default.
+You can download the addon from here https://github.com/azerothcore/GMGenie/releases. Make sure the folder is called `GMGenie` When logging in, the addon should be enabled by default.
 
 **Supported emulators:** 
 
