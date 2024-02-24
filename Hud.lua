@@ -44,15 +44,38 @@ function GMGenie.Hud.checkStatus()
     SendChatMessage(".gm visible", "GUILD");
     SendChatMessage(".whispers", "GUILD");
 
-    GMGenie.Hud.waitingForPin = true;
+    GMGenie.Hud.hasFoundGmStatus = false;
+    GMGenie.CommandBus.dispatchAndReadResponse(
+        ".pin " .. UnitName("player"),
+        GMGenie.Hud.readGmStatusHandler
+    );
     SendChatMessage(".pin " .. UnitName("player"), "GUILD");
-    -- set status to false after a second. .pin does not
-    -- print anything when the player does _not_ have gm status
-    Chronos.schedule(1, function()
-        if not GMGenie.Hud.gm then
-            GMGenie.Hud.gmStatus(false);
+end
+
+function GMGenie.Hud.readGmStatusHandler(message)
+    if string.find(message, "Character .* does not exist") then
+        GMGenie.CommandBus.unregisterMessageHandler(GMGenie.Hud.readGmStatusHandler);
+        return false;
+    end
+    local isPlayerInfoMessage = GMGenie.messageStartsWithPipe(message);
+    if isPlayerInfoMessage then
+        local gmModeActive = string.find(message, "(GM Mode active)");
+        if gmModeActive then
+            GMGenie.Hud.gmStatus(true);
+            GMGenie.Hud.hasFoundGmStatus = true;
         end
-    end);
+
+        local isLastMessage = string.find(message, "Played time: (.*)");
+        if isLastMessage then
+            GMGenie.CommandBus.unregisterMessageHandler(GMGenie.Hud.readGmStatusHandler);
+
+            if not GMGenie.Hud.hasFoundGmStatus then
+                GMGenie.Hud.gmStatus(false);
+            end
+        end
+
+        return true;
+    end
 end
 
 function GMGenie.Hud.gmStatus(status)
