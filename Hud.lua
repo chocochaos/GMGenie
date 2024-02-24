@@ -40,10 +40,19 @@ end
 ------------ HUD status functionality ------------
 --------------------------------------------------
 function GMGenie.Hud.checkStatus()
-    SendChatMessage(".gm", "GUILD");
     SendChatMessage(".gm chat", "GUILD");
     SendChatMessage(".gm visible", "GUILD");
     SendChatMessage(".whispers", "GUILD");
+
+    GMGenie.Hud.waitingForPin = true;
+    SendChatMessage(".pin " .. UnitName("player"), "GUILD");
+    -- set status to false after a second. .pin does not
+    -- print anything when the player does _not_ have gm status
+    Chronos.schedule(1, function()
+        if not GMGenie.Hud.gm then
+            GMGenie.Hud.gmStatus(false);
+        end
+    end);
 end
 
 function GMGenie.Hud.gmStatus(status)
