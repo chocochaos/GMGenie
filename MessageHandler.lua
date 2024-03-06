@@ -13,6 +13,6 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
     end
 
     if not shouldMessageBeSuppressedInChat then
-        originalMessageHandler(self, event, message);
+        originalMessageHandler(self, event, message, ...);
     end
 end
