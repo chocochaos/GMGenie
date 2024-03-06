@@ -27,7 +27,7 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
     local ActionTaken = false;
 
     -- development code to analize chat messages
-    local excapedarg = string.gsub(arg1, "%|", "%%");
+    local excapedarg = string.gsub(message, "%|", "%%");
     GMGenie.showGMMessage("1: " .. excapedarg);
 
     -- check for system messages of interest
