@@ -57,6 +57,7 @@ function Spy.execute(characterName)
 
     GMGenie.CommandBus.dispatchAndReadResponse(
         ".pin " .. characterName,
+        "Spy.handlePlayerInfoResponse",
         Spy.handlePlayerInfoResponse
     );
 end
@@ -128,7 +129,7 @@ function Spy.handlePlayerInfoResponse(message)
     GMGenie.showGMMessage("Spy - handling message: " .. message);
     if string.find(message, "Character .* does not exist") then
         GMGenie.showGMMessage("Spy: character not found");
-        GMGenie.CommandBus.unregisterMessageHandler(Spy.handlePlayerInfoResponse);
+        GMGenie.CommandBus.unregisterMessageHandler("Spy.handlePlayerInfoResponse");
         return false;
     end
 
@@ -356,7 +357,7 @@ Spy.PlayerInfoLineHandlers = {
             Spy.playerInfo.totalPlayTime = playedTime;
 
             -- This is the last playerInfo message, so we can unregister the handler here.
-            GMGenie.CommandBus.unregisterMessageHandler(Spy.handlePlayerInfoResponse);
+            GMGenie.CommandBus.unregisterMessageHandler("Spy.handlePlayerInfoResponse");
 
             return true;
         end
