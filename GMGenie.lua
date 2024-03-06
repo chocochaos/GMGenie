@@ -8,11 +8,23 @@
 --- @class GMGenie
 --- @field CommandBus CommandBus
 --- @field Spy Spy
-GMGenie = {};
+GMGenie = {
+    debug = false,
+};
 GMGenie_SavedVars = {};
 
 function GMGenie.showGMMessage(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000[GMGenie]|cffffffff: " .. msg);
+end
+
+--- @param message string
+--- @return nil
+function GMGenie.printDebugMessage(message)
+    if not GMGenie.debug then
+        return;
+    end
+
+    DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000[GMGenie DEBUG]|cffffffff: " .. message);
 end
 
 function GMGenie.pairsByKeys(t, f)

@@ -25,10 +25,12 @@ end
 --- @param identifier string
 --- @param responseHandler fun(message: string):boolean
 function CommandBus.registerMessageHandler(identifier, responseHandler)
+    GMGenie.printDebugMessage("Message handler registered: " .. identifier);
     CommandBus.responseHandlers[identifier] = responseHandler;
 end
 
 --- @param identifier string
 function CommandBus.unregisterMessageHandler(identifier)
+    GMGenie.printDebugMessage("Message handler unregistered: " .. identifier);
     CommandBus.responseHandlers[identifier] = nil;
 end

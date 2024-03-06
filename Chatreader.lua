@@ -29,8 +29,8 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
     -- check for system messages of interest
     if (event == "CHAT_MSG_SYSTEM" and message ~= nil) then
         -- development code to analize chat messages
-        local excapedarg = string.gsub(message, "%|", "%%");
-        GMGenie.showGMMessage("1: " .. excapedarg);
+        -- local excapedarg = string.gsub(message, "%|", "%%");
+        -- GMGenie.showGMMessage("1: " .. excapedarg);
 
         -- Showing list of open tickets whose creator is online.
         if string.find(message, "Showing list of open tickets") then

@@ -84,7 +84,7 @@ end
 
 --- @return nil
 function Spy.reset()
-    -- Set all values in the table Spy.playerInfo to nil
+    -- Empty all values in the table Spy.playerInfo
     for key, _ in pairs(Spy.playerInfo) do
         Spy.playerInfo[key] = "";
     end
@@ -115,7 +115,7 @@ function Spy.updateUI()
     GMGenie_Spy_InfoWindow_MoneyPhase_Money:SetText(Spy.playerInfo.money);
     GMGenie_Spy_InfoWindow_MoneyPhase_Phase:SetText(Spy.playerInfo.phase);
     GMGenie_Spy_InfoWindow_Location_Location:SetText(Spy.playerInfo.location);
-    -- Scroll the fields to the left, in case it overflows.
+    -- Scroll the location field to the left, in case it overflows.
     GMGenie_Spy_InfoWindow_Location_Location:SetCursorPosition(0);
 end
 
@@ -126,16 +126,13 @@ end
 --- @param message string
 --- @return boolean
 function Spy.handlePlayerInfoResponse(message)
-    GMGenie.showGMMessage("Spy - handling message: " .. message);
     if string.find(message, "Character .* does not exist") then
-        GMGenie.showGMMessage("Spy: character not found");
         GMGenie.CommandBus.unregisterMessageHandler("Spy.handlePlayerInfoResponse");
         return false;
     end
 
     local isPlayerInfoMessage = GMGenie.messageStartsWithBrokenBar(message);
     if not isPlayerInfoMessage then
-        GMGenie.showGMMessage("Spy: this is not a playerinfo message");
         return false;
     end
 
@@ -143,7 +140,6 @@ function Spy.handlePlayerInfoResponse(message)
         local lineWasParsed = lineHandler(message);
 
         if lineWasParsed then
-            GMGenie.showGMMessage("Spy: line was parsed");
             Spy.updateUI();
             return true;
         end
