@@ -117,6 +117,8 @@ function Spy.updateUI()
     GMGenie_Spy_InfoWindow_Location_Location:SetText(Spy.playerInfo.location);
     -- Scroll the location field to the left, in case it overflows.
     GMGenie_Spy_InfoWindow_Location_Location:SetCursorPosition(0);
+
+    GMGenie_Spy_InfoWindow:Show();
 end
 
 ----------------------------------------
