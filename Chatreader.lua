@@ -203,5 +203,6 @@ end
 
 function GMGenie.messageStartsWithBrokenBar(message)
     local firstCharacter = string.sub(message, 1, 1);
+    GMGenie.showGMMessage("First character: " .. firstCharacter);
     return firstCharacter == '¦';
 end
