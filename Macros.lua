@@ -101,7 +101,7 @@ function GMGenie.Macros.contextMenuClick(self)
         elseif button == "Unfreeze" then
             GMGenie.Macros.unfreeze(name);
         elseif button == "Spy" then
-            GMGenie.Spy.spy(name);
+            GMGenie.Spy.execute(name);
         elseif button == "Character_Rename" then
             GMGenie.Macros.rename(name);
         elseif button == "Character_Customize" then

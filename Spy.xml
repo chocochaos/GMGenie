@@ -25,7 +25,7 @@
             </OnDoubleClick>
             <OnLoad>
                 GMGenie.loadWindow(self, 'Loading...', true, function()
-                GMGenie.Spy.spy(GMGenie.Spy.currentRequest["name"]); end);
+                GMGenie.Spy.execute(GMGenie.Spy.currentRequest["name"]); end);
             </OnLoad>
         </Scripts>
         <Frames>
