@@ -1,206 +1,371 @@
---This file is part of Game Master Genie.
---Copyright 2011-2014 Chocochaos
+--- @class Spy
+local Spy = {
+    playerInfo = {
+        --- @type string|nil
+        accountName = nil,
+        --- @type string|nil
+        accountId = nil,
+        --- @type string|nil
+        race = nil,
+        --- @type string|nil
+        class = nil,
+        --- @type string|nil
+        emailAdress = nil,
+        --- @type string|nil
+        gmLevel = nil,
+        --- @type string|nil
+        guid = nil,
+        --- @type string|nil
+        guild = nil,
+        --- @type string|nil
+        ip = nil,
+        --- @type string|nil
+        latency = nil,
+        --- @type string|nil
+        level = nil,
+        --- @type string|nil
+        location = nil,
+        --- @type string|nil
+        lastLogin = nil,
+        --- @type string|nil
+        failedLogins = nil,
+        --- @type string|nil
+        money = nil,
+        --- @type string|nil
+        characterName = nil,
+        --- @type string|nil
+        phase = nil,
+        --- @type string|nil
+        totalPlayTime = nil
+    }
+};
 
---Game Master Genie is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.
---Game Master Genie is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
---You should have received a copy of the GNU General Public License along with Game Master Genie. If not, see <http://www.gnu.org/licenses/>.
+GMGenie.Spy = Spy;
 
-GMGenie.Spy = {};
-GMGenie.Spy.waitingForPin = false;
-GMGenie.Spy.pinCache = "";
+--- @param characterName string
+--- @return nil
+function Spy.execute(characterName)
+    characterName = Spy.resolveCharacterName(characterName);
 
-function GMGenie.Spy.antiCheat(name)
-    GMGenie.Spy.spy(name);
-    GMGenie.Spy.antiCheatPlayer();
-    GMGenie.Hud.toggleVisibility(false);
-    GMGenie.Spy.appear();
-end
-
-function GMGenie.Spy.spy(name)
-    if not name or string.len(name) < 1 or name == "%t" then
-        name = UnitName("target");
-    end
-    if name and string.len(name) > 1 then
-        GMGenie.Spy.waitingForPin = true;
-        GMGenie.Spy.currentRequest = { account = "", accountId = "", class = "", email = "", gmLevel = "", guid = "", guild = "", ip = "", latency = "", level = "", location = "", login = "", money = "", name = "", phase = "", playedTime = "", race = "" };
-        GMGenie.Spy.clearCache();
-        GMGenie.Spy.resetBoxes();
-        GMGenie.Spy.currentRequest["name"] = name;
-
-        GMGenie.Spy.clearCache();
-        SendChatMessage(".pin " .. name, "GUILD");
-    else
-        GMGenie.showGMMessage("Please enter a name or make sure you have someone targeted.");
-    end
-end
-
-function GMGenie.Spy.clearCache()
-    GMGenie.Spy.pinCache = "";
-end
-
-function GMGenie.Spy.addToCache(pin)
-    GMGenie.Spy.pinCache = GMGenie.Spy.pinCache .. pin .. "\n";
-end
-
-function GMGenie.Spy.processPin01(offline, name1, guid, pin)
-    GMGenie.Spy.currentRequest["name"] = name1;
-    GMGenie.Spy.currentRequest["offline"] = offline;
-    GMGenie.Spy.currentRequest["guid"] = guid;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin02(phase, pin)
-    GMGenie.Spy.currentRequest["phase"] = phase;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin03(account, accountId, gmLevel, pin)
-    GMGenie.Spy.currentRequest["account"] = account;
-    GMGenie.Spy.currentRequest["accountId"] = accountId;
-    GMGenie.Spy.currentRequest["gmLevel"] = gmLevel;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin04(login, failedLogins, pin)
-    GMGenie.Spy.currentRequest["login"] = login;
-    -- todo failedLogins
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin05(os, latency, pin)
-    -- todo os
-    GMGenie.Spy.currentRequest["latency"] = latency;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin06(email, pin)
-    GMGenie.Spy.currentRequest["email"] = email;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin07(ip, locked, pin)
-    GMGenie.Spy.currentRequest["ip"] = ip;
-    -- todo locked
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin08(level, pin)
-    GMGenie.Spy.currentRequest["level"] = level;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin09(race, class, pin)
-    GMGenie.Spy.currentRequest["race"] = race;
-    GMGenie.Spy.currentRequest["class"] = class;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin10(alive, pin)
-    -- todo alive
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin11(money, pin)
-    GMGenie.Spy.currentRequest["money"] = money;
-
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin12(map, area, zone, pin)
-    GMGenie.Spy.currentRequest["location"] = map;
-    if string.upper(zone) ~= '<UNKNOWN>' then
-        GMGenie.Spy.currentRequest["location"] = zone .. ', ' .. GMGenie.Spy.currentRequest["location"];
-    end
-    if area and map ~= area then
-        GMGenie.Spy.currentRequest["location"] = area .. ', ' .. GMGenie.Spy.currentRequest["location"];
+    if not characterName or string.len(characterName) < 1 then
+        GMGenie.showGMMessage("Please enter a name or target a player.");
+        return ;
     end
 
-    GMGenie.Spy.addToCache(pin);
+    Spy.reset();
+    Spy.playerInfo.characterName = characterName;
+
+    GMGenie.CommandBus.dispatchAndReadResponse(
+        ".pin " .. characterName,
+        Spy.handlePlayerInfoResponse
+    );
 end
 
-function GMGenie.Spy.processPin13(guild, guildId, pin)
-    GMGenie.Spy.currentRequest["guild"] = '<' .. guild .. '> (' .. guildId .. ')';
+--- @param characterName string
+--- @return string
+function Spy.resolveCharacterName(characterName)
+    local characterNameIsEmpty = not characterName or string.len(characterName) < 1;
 
-    GMGenie.Spy.addToCache(pin);
+    if characterNameIsEmpty then
+        local name, _ = UnitName("target");
+        return name;
+    end
+
+    local characterNameIsTarget = characterName == "%t";
+
+    if characterNameIsTarget then
+        local name, _ = UnitName("target");
+        return name;
+    end
+
+    return characterName;
 end
 
-function GMGenie.Spy.processPin14(guildRank, pin)
-    GMGenie.Spy.currentRequest["guild"] = '"' .. guildRank .. '" of ' .. GMGenie.Spy.currentRequest["guild"];
+--- @return nil
+function Spy.reset()
+    -- Set all values in the table Spy.playerInfo to nil
+    for key, _ in pairs(Spy.playerInfo) do
+        Spy.playerInfo[key] = nil;
+    end
 
-    GMGenie.Spy.addToCache(pin);
+    Spy.updateUI();
 end
 
-function GMGenie.Spy.processPin15(note, pin)
-    -- todo note
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin16(officerNote, pin)
-    -- todo officerNote
-    GMGenie.Spy.addToCache(pin);
-end
-
-function GMGenie.Spy.processPin17(playedTime, pin)
-    GMGenie.Spy.currentRequest["playedTime"] = playedTime;
-
-    GMGenie.Spy.addToCache(pin);
-
-    GMGenie.Spy.waitingForPin = false;
-    GMGenie.Spy.waitingForMail = true;
-    Chronos.scheduleByName('mailinpinprotection', 2, GMGenie.Spy.abortWaitingForMail);
-    GMGenie.Spy.resetBoxes();
-    GMGenie_Spy_InfoWindow:Show();
-end
-
-function GMGenie.Spy.processPin18(read, total, pin)
-    GMGenie.Spy.addToCache(pin);
-
-    GMGenie.Spy.waitingForMail = false;
-    Chronos.unscheduleByName('mailinpinprotection');
-    GMGenie.Spy.resetBoxes();
-    GMGenie_Spy_InfoWindow:Show();
-end
-
-function GMGenie.Spy.abortWaitingForMail()
-    GMGenie.Spy.waitingForMail = false;
-end
-
-function GMGenie.Spy.resetBoxes()
-    GMGenie_Spy_InfoWindow_Info_CharInfo:SetText("Level " .. GMGenie.Spy.currentRequest["level"] .. " " .. GMGenie.Spy.currentRequest["race"] .. " " .. GMGenie.Spy.currentRequest["class"]);
-    GMGenie_Spy_InfoWindow_Info_Guild:SetText(GMGenie.Spy.currentRequest["guild"]);
-    GMGenie_Spy_InfoWindow_Title_Text:SetText(GMGenie.Spy.currentRequest["name"]);
-    GMGenie_Spy_InfoWindow_Character_Name:SetText(GMGenie.Spy.currentRequest["name"]);
-    GMGenie_Spy_InfoWindow_Character_Id:SetText(GMGenie.Spy.currentRequest["guid"]);
-    GMGenie_Spy_InfoWindow_Account_Name:SetText(GMGenie.Spy.currentRequest["account"]);
-    GMGenie_Spy_InfoWindow_Account_Id:SetText(GMGenie.Spy.currentRequest["accountId"]);
-    GMGenie_Spy_InfoWindow_Email_Email:SetText(GMGenie.Spy.currentRequest["email"]);
-    GMGenie_Spy_InfoWindow_IpLat_Ip:SetText(GMGenie.Spy.currentRequest["ip"]);
-    if tonumber(GMGenie.Spy.currentRequest["latency"]) and tonumber(GMGenie.Spy.currentRequest["latency"]) > 1000 then
+--- @return nil
+function Spy.updateUI()
+    GMGenie_Spy_InfoWindow_Info_CharInfo:SetText("Level " .. Spy.playerInfo.level .. " " .. Spy.playerInfo.race .. " " .. Spy.playerInfo.class);
+    GMGenie_Spy_InfoWindow_Info_Guild:SetText(Spy.playerInfo.guild);
+    GMGenie_Spy_InfoWindow_Title_Text:SetText(Spy.playerInfo.characterName);
+    GMGenie_Spy_InfoWindow_Character_Name:SetText(Spy.playerInfo.characterName);
+    GMGenie_Spy_InfoWindow_Character_Id:SetText(Spy.playerInfo.guid);
+    GMGenie_Spy_InfoWindow_Account_Name:SetText(Spy.playerInfo.accountName);
+    GMGenie_Spy_InfoWindow_Account_Id:SetText(Spy.playerInfo.accountId);
+    GMGenie_Spy_InfoWindow_Email_Email:SetText(Spy.playerInfo.emailAdress);
+    GMGenie_Spy_InfoWindow_IpLat_Ip:SetText(Spy.playerInfo.ip);
+    if tonumber(Spy.playerInfo.latency) and tonumber(Spy.playerInfo.latency) > 1000 then
         GMGenie_Spy_InfoWindow_IpLat_Latency:SetFontObject(GenieFontRedSmall);
     else
         GMGenie_Spy_InfoWindow_IpLat_Latency:SetFontObject(GenieFontHighlightSmall);
     end
-    GMGenie_Spy_InfoWindow_IpLat_Latency:SetText(GMGenie.Spy.currentRequest["latency"]);
-    GMGenie_Spy_InfoWindow_LastLogin_LastLogin:SetText(GMGenie.Spy.currentRequest["login"]);
-    GMGenie_Spy_InfoWindow_PlayedGM_PlayedTime:SetText(GMGenie.Spy.currentRequest["playedTime"]);
-    GMGenie_Spy_InfoWindow_PlayedGM_GM:SetText(GMGenie.Spy.currentRequest["gmLevel"]);
-    GMGenie_Spy_InfoWindow_MoneyPhase_Money:SetText(GMGenie.Spy.currentRequest["money"]);
-    GMGenie_Spy_InfoWindow_MoneyPhase_Phase:SetText(GMGenie.Spy.currentRequest["phase"]);
-    GMGenie_Spy_InfoWindow_Location_Location:SetText(GMGenie.Spy.currentRequest["location"]);
+    GMGenie_Spy_InfoWindow_IpLat_Latency:SetText(Spy.playerInfo.latency);
+    GMGenie_Spy_InfoWindow_LastLogin_LastLogin:SetText(Spy.playerInfo.lastLogin);
+    GMGenie_Spy_InfoWindow_PlayedGM_PlayedTime:SetText(Spy.playerInfo.totalPlayTime);
+    GMGenie_Spy_InfoWindow_PlayedGM_GM:SetText(Spy.playerInfo.gmLevel);
+    GMGenie_Spy_InfoWindow_MoneyPhase_Money:SetText(Spy.playerInfo.money);
+    GMGenie_Spy_InfoWindow_MoneyPhase_Phase:SetText(Spy.playerInfo.phase);
+    GMGenie_Spy_InfoWindow_Location_Location:SetText(Spy.playerInfo.location);
+    -- Scroll the fields to the left, in case it overflows.
     GMGenie_Spy_InfoWindow_Location_Location:SetCursorPosition(0);
 end
 
-function GMGenie.Spy.loadDropdown(_, level)
+----------------------------------------
+--- START PLAYERINFO RESPONSE HANDLING
+----------------------------------------
+
+--- @param message string
+--- @return boolean
+function Spy.handlePlayerInfoResponse(message)
+    if string.find(message, "Character .* does not exist") then
+        GMGenie.CommandBus.unregisterMessageHandler(Spy.handlePlayerInfoResponse);
+        return false;
+    end
+
+    local isPlayerInfoMessage = GMGenie.messageStartsWithPipe(message);
+    if not isPlayerInfoMessage then
+        return false;
+    end
+
+    for _, lineHandler in pairs(Spy.PlayerInfoLineHandlers) do
+        local lineWasParsed = lineHandler(message);
+
+        if lineWasParsed then
+            Spy.updateUI();
+            return true;
+        end
+    end
+
+    return false;
+end
+
+--- @type table<number, fun(message: string):boolean>
+Spy.PlayerInfoLineHandlers = {
+    function(message)
+        local _offline, characterName, _unknown, guid = string.match(
+            message,
+            "Player  ?(.*) %|cffffffff%|Hplayer:(.*)%|h%[(.*)%]%|h%|r %(guid: (.*)%)"
+        );
+
+        if characterName or guid then
+            Spy.playerInfo.characterName = characterName;
+            Spy.playerInfo.guid = guid;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local phase = string.match(message, "Phase: (.*)");
+
+        if phase then
+            Spy.playerInfo.phase = phase;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local account, accountId, gmLevel = string.match(message, "Account: (.*) %(ID: (.*)%), GMLevel: (.*)");
+
+        if account or accountId or gmLevel then
+            Spy.playerInfo.accountName = account;
+            Spy.playerInfo.accountId = accountId;
+            Spy.playerInfo.gmLevel = gmLevel;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local login, failedLogins = string.match(message, "Last Login: (.*) %(Failed Logins: (.*)%)");
+
+        if login or failedLogins then
+            Spy.playerInfo.lastLogin = login;
+            Spy.playerInfo.failedLogins = failedLogins;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local _os, latency = string.match(message, "OS: (.*) %- Latency: (.*) ms");
+
+        if latency then
+            Spy.playerInfo.latency = latency;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local email = string.match(message, "%- Email: (.*)");
+
+        if email then
+            Spy.playerInfo.emailAdress = email;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local ip, locked = string.match(message, "Last IP: (.*) %(Locked: (.*)%)");
+
+        if ip then
+            Spy.playerInfo.ip = ip;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local level = string.match(message, "Level: ([0-9]+)");
+
+        if level then
+            Spy.playerInfo.level = level;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local race, class = string.match(message, "Race: (.*), (.*)");
+
+        if race or class then
+            Spy.playerInfo.race = race;
+            Spy.playerInfo.class = class;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local alive = string.match(message, "Alive %?: (.*)");
+
+        if alive then
+            -- alive is not printed for now
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local money = string.match(message, "Money: (.*)");
+
+        if money then
+            Spy.playerInfo.money = money;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local map, zone, area = string.match(message, "Map: (.*), Zone: (.*), Area: (.*)");
+
+        if not map then
+            map, zone = string.match(message, "Map: (.*), Zone: (.*)");
+        end
+
+        if map or zone or area then
+            local fullLocation = map;
+            if map ~= area then
+                fullLocation = area .. ', ' .. fullLocation;
+            end
+            if string.upper(zone) ~= '<UNKNOWN>' then
+                fullLocation = zone .. ', ' .. fullLocation;
+            end
+
+            Spy.playerInfo.location = fullLocation;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local guild, guildId = string.match(message, "Guild: (.*) %(ID: (.*)%)");
+
+        if guild or guildId then
+            Spy.playerInfo.guild = guild;
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local guildRank = string.match(message, "Rank: (.*)");
+
+        if guildRank then
+            -- guild rank is not printed for now
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local note = string.match(message, "Note: (.*)");
+
+        if note then
+            -- note is not printed for now
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local officerNote = string.match(message, "O. Note: (.*)");
+
+        if officerNote then
+            -- officerNote is not printed for now
+
+            return true;
+        end
+
+        return false;
+    end,
+    function(message)
+        local playedTime = string.match(message, "Played time: (.*)");
+
+        if playedTime then
+            Spy.playerInfo.totalPlayTime = playedTime;
+
+            -- This is the last playerInfo message, so we can unregister the handler here.
+            GMGenie.CommandBus.unregisterMessageHandler(Spy.handlePlayerInfoResponse);
+
+            return true;
+        end
+
+        return false;
+    end
+}
+
+----------------------------------------
+--- END PLAYERINFO RESPONSE HANDLING
+----------------------------------------
+
+function Spy.loadDropdown(_, level)
     local info = UIDropDownMenu_CreateInfo();
     info.hasArrow = false;
     info.notCheckable = true;
@@ -217,68 +382,64 @@ function GMGenie.Spy.loadDropdown(_, level)
 end
 
 SLASH_SPY1 = "/spy";
-SlashCmdList["SPY"] = GMGenie.Spy.spy;
+SlashCmdList["SPY"] = Spy.execute;
 
-function GMGenie.Spy.copyPin()
-    GMGenie.showGMMessage(GMGenie.Spy.pinCache);
+function Spy.whisper()
+    ChatFrame_SendTell(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.whisper()
-    ChatFrame_SendTell(GMGenie.Spy.currentRequest["name"]);
+function Spy.summon()
+    GMGenie.Macros.summon(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.summon()
-    GMGenie.Macros.summon(GMGenie.Spy.currentRequest["name"]);
+function Spy.appear()
+    GMGenie.Macros.appear(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.appear()
-    GMGenie.Macros.appear(GMGenie.Spy.currentRequest["name"]);
+function Spy.revive()
+    GMGenie.Macros.revive(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.revive()
-    GMGenie.Macros.revive(GMGenie.Spy.currentRequest["name"]);
+function Spy.freeze()
+    GMGenie.Macros.freeze(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.freeze()
-    GMGenie.Macros.freeze(GMGenie.Spy.currentRequest["name"]);
+function Spy.unfreeze()
+    GMGenie.Macros.unfreeze(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.unfreeze()
-    GMGenie.Macros.unfreeze(GMGenie.Spy.currentRequest["name"]);
+function Spy.rename()
+    GMGenie.Macros.rename(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.rename()
-    GMGenie.Macros.rename(GMGenie.Spy.currentRequest["name"]);
+function Spy.antiCheatPlayer()
+    GMGenie.Macros.antiCheatPlayer(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.antiCheatPlayer()
-    GMGenie.Macros.antiCheatPlayer(GMGenie.Spy.currentRequest["name"]);
+function Spy.customize()
+    GMGenie.Macros.customize(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.customize()
-    GMGenie.Macros.customize(GMGenie.Spy.currentRequest["name"]);
+function Spy.changefaction()
+    GMGenie.Macros.changefaction(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.changefaction()
-    GMGenie.Macros.changefaction(GMGenie.Spy.currentRequest["name"]);
+function Spy.changerace()
+    GMGenie.Macros.changerace(Spy.playerInfo.characterName);
 end
 
-function GMGenie.Spy.changerace()
-    GMGenie.Macros.changerace(GMGenie.Spy.currentRequest["name"]);
-end
-
-function GMGenie.Spy.banInfo()
+function Spy.banInfo()
     CloseDropDownMenus()
-    SendChatMessage(".baninfo account " .. GMGenie.Spy.currentRequest["account"], "GUILD");
-    SendChatMessage(".baninfo character " .. GMGenie.Spy.currentRequest["name"], "GUILD");
-    SendChatMessage(".baninfo ip " .. GMGenie.Spy.currentRequest["ip"], "GUILD");
+    SendChatMessage(".baninfo account " .. Spy.playerInfo.accountName, "GUILD");
+    SendChatMessage(".baninfo character " .. Spy.playerInfo.characterName, "GUILD");
+    SendChatMessage(".baninfo ip " .. Spy.playerInfo.ip, "GUILD");
 end
 
-function GMGenie.Spy.lookupPlayer()
+function Spy.lookupPlayer()
     CloseDropDownMenus()
-    SendChatMessage(".lookup player account " .. GMGenie.Spy.currentRequest["account"], "GUILD");
-    SendChatMessage(".lookup player email " .. GMGenie.Spy.currentRequest["email"], "GUILD");
-    SendChatMessage(".lookup player ip " .. GMGenie.Spy.currentRequest["ip"], "GUILD");
+    SendChatMessage(".lookup player account " .. Spy.playerInfo.accountName, "GUILD");
+    SendChatMessage(".lookup player email " .. Spy.playerInfo.emailAdress, "GUILD");
+    SendChatMessage(".lookup player ip " .. Spy.playerInfo.ip, "GUILD");
 end
 
 local Saved_SetItemRef = SetItemRef;
@@ -290,7 +451,14 @@ function SetItemRef(link, text, button, chatFrame)
         elseif (button == "RightButton") then
             FriendsFrame_ShowDropdown(name, 1);
         end
-        return;
+        return ;
     end
     Saved_SetItemRef(link, text, button, chatFrame);
+end
+
+function Spy.antiCheat(name)
+    Spy.execute(name);
+    GMGenie.Spy.antiCheatPlayer();
+    GMGenie.Hud.toggleVisibility(false);
+    GMGenie.Spy.appear();
 end

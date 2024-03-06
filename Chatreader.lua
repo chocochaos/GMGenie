@@ -34,8 +34,8 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
     local ActionTaken = false;
 
     -- development code to analize chat messages
-    --local excapedarg = string.gsub(arg1, "%|", "%%");
-    --GMGenie.showGMMessage("1: " .. excapedarg);
+    local excapedarg = string.gsub(arg1, "%|", "%%");
+    GMGenie.showGMMessage("1: " .. excapedarg);
 
     -- check for system messages of interest
     if (event == "CHAT_MSG_SYSTEM") then
@@ -159,160 +159,6 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
             end
         end
 
-        if GMGenie.Hud.isWaitingForPlayerInfo then
-            if string.find(message, "Character .* does not exist") then
-                GMGenie.Hud.isWaitingForPlayerInfo = false;
-                GMGenie.Hud.gmStatus(false);
-            else
-                local isPlayerInfoMessage = GMGenie.messageStartsWithPipe(message);
-                if isPlayerInfoMessage then
-                    ActionTaken = true;
-
-                    local isGmModeActive = string.find(message, "(GM Mode active)");
-                    if isGmModeActive then
-                        GMGenie.Hud.gmStatus(true);
-                    end
-
-                    local isLastMessage = string.find(message, "Played time: (.*)");
-                    if isLastMessage then
-                        GMGenie.Hud.waitingForPin = false;
-                        if not GMGenie.Hud.hasFoundGmStatus then
-                            GMGenie.Hud.gmStatus(false);
-                        end
-                    end
-                end
-            end
-        end
-
-        if GMGenie.Spy.waitingForPin or GMGenie.Macros.Discipline.IpBan.waitingForPin then
-            if string.find(message, "Character .* does not exist") then
-                GMGenie.Spy.waitingForPin = false;
-                GMGenie.Macros.Discipline.IpBan.waitingForPin = false;
-            else
-                local isPlayerInfoMessage = GMGenie.messageStartsWithPipe(message);
-                if GMGenie.Hud.waitingForPin and isPlayerInfoMessage then
-                    ActionTaken = true;
-
-                    local gmModeActive = string.find(message, "(GM Mode active)");
-                    if gmModeActive then
-                        GMGenie.Hud.gmStatus(true);
-                    end
-
-                    local isLastMessage = string.find(message, "Played time: (.*)");
-                    if isLastMessage then
-                        GMGenie.Hud.waitingForPin = false;
-                    end
-                elseif GMGenie.Spy.waitingForPin then
-                    local offline, name1, _, guid = string.match(message, "Player  ?(.*) %|cffffffff%|Hplayer:(.*)%|h%[(.*)%]%|h%|r %(guid: (.*)%)");
-                    -- TODO: use the below to figure out the GM status
-                    local phase = string.match(message, "Phase: (.*)");
-                    local account, accountId, gmLevel = string.match(message, "Account: (.*) %(ID: (.*)%), GMLevel: (.*)");
-                    local login, failedLogins = string.match(message, "Last Login: (.*) %(Failed Logins: (.*)%)");
-                    local os_, latency = string.match(message, "OS: (.*) %- Latency: (.*) ms");
-                    local email = string.match(message, "%- Email: (.*)");
-                    local ip, locked = string.match(message, "Last IP: (.*) %(Locked: (.*)%)");
-                    local level = string.match(message, "Level: ([0-9]+)");
-                    local race, class = string.match(message, "Race: (.*), (.*)");
-                    local alive = string.match(message, "Alive %?: (.*)");
-                    local money = string.match(message, "Money: (.*)");
-                    local map, zone, area = string.match(message, "Map: (.*), Zone: (.*), Area: (.*)");
-                    if not map then
-                        map, zone = string.match(message, "Map: (.*), Zone: (.*)");
-                    end
-                    local guild, guildId = string.match(message, "Guild: (.*) %(ID: (.*)%)");
-                    local guildRank = string.match(message, "Rank: (.*)");
-                    local note = string.match(message, "Note: (.*)");
-                    local officerNote = string.match(message, "O. Note: (.*)");
-                    local playedTime = string.match(message, "Played time: (.*)");
-
-
-                    if offline then
-                        GMGenie.Spy.processPin01(offline, name1, guid, message);
-                        ActionTaken = true;
-                    end
-                    if phase then
-                        GMGenie.Spy.processPin02(phase, message);
-                        ActionTaken = true;
-                    end
-                    if account then
-                        GMGenie.Spy.processPin03(account, accountId, gmLevel, message);
-                        ActionTaken = true;
-                    end
-                    if login then
-                        GMGenie.Spy.processPin04(login, failedLogins, message);
-                        ActionTaken = true;
-                    end
-                    if os_ then
-                        GMGenie.Spy.processPin05(os_, latency, message);
-                        ActionTaken = true;
-                    end
-                    if email then
-                        GMGenie.Spy.processPin06(email, message);
-                        ActionTaken = true;
-                    end
-                    if ip then
-                        GMGenie.Spy.processPin07(ip, locked, message);
-                        ActionTaken = true;
-                    end
-                    if level then
-                        GMGenie.Spy.processPin08(level, message);
-                        ActionTaken = true;
-                    end
-                    if race then
-                        GMGenie.Spy.processPin09(race, class, message);
-                        ActionTaken = true;
-                    end
-                    if alive then
-                        GMGenie.Spy.processPin10(alive, message);
-                        ActionTaken = true;
-                    end
-                    if money then
-                        GMGenie.Spy.processPin11(money, message);
-                        ActionTaken = true;
-                    end
-                    if map then
-                        GMGenie.Spy.processPin12(map, area, zone, message);
-                        ActionTaken = true;
-                    end
-                    if guild then
-                        GMGenie.Spy.processPin13(guild, guildId, message);
-                        ActionTaken = true;
-                    end
-                    if guildRank then
-                        GMGenie.Spy.processPin14(guildRank, message);
-                        ActionTaken = true;
-                    end
-                    if note then
-                        GMGenie.Spy.processPin15(note, message);
-                        ActionTaken = true;
-                    end
-                    if officerNote then
-                        GMGenie.Spy.processPin16(officerNote, message);
-                        ActionTaken = true;
-                    end
-                    if playedTime then
-                        GMGenie.Spy.processPin17(playedTime, message);
-                        ActionTaken = true;
-                    end
-                else
-                    local ip, locked = string.match(message, "Last IP: (.*) %(Locked: (.*)%)")
-
-                    if ip then
-                        GMGenie.Macros.Discipline.IpBan.processPin(ip);
-                        ActionTaken = true;
-                    end
-                end
-            end
-        end
-
-        if GMGenie.Spy.waitingForMail then
-            local read, total = string.match(message, "Mails: (.*) Read/(.*) Total");
-            if read then
-                GMGenie.Spy.processPin18(read, total, message);
-                ActionTaken = true;
-            end
-        end
-
         if GMGenie.Spawns.waitingForObject then
             local name, guid, id = string.match(message, "%|cffffffff%|Hgameobject:.*%|h%[(.*)%]%|h%|r%sGUID:%s(.*)%sID:%s(.*)");
             if name and guid and id then
@@ -363,6 +209,6 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
 end
 
 function GMGenie.messageStartsWithPipe(message)
-    local firstCharacter = string.sub(str, 1, 1);
+    local firstCharacter = string.sub(message, 1, 1);
     return firstCharacter == '|';
 end

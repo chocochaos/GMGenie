@@ -23,11 +23,6 @@
                 self:ClearAllPoints();
                 self:SetPoint("LEFT", GMGenie_Tickets_View, "RIGHT");
             </OnDoubleClick>
-            <OnClick>
-                if (button == "RightButton") then
-                GMGenie.Spy.copyPin();
-                end
-            </OnClick>
             <OnLoad>
                 GMGenie.loadWindow(self, 'Loading...', true, function()
                 GMGenie.Spy.spy(GMGenie.Spy.currentRequest["name"]); end);
