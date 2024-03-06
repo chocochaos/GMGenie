@@ -26,12 +26,12 @@ local ORIG_ChatFrame_MessageEventHandler = ChatFrame_MessageEventHandler;
 function ChatFrame_MessageEventHandler(self, event, message, ...)
     local ActionTaken = false;
 
-    -- development code to analize chat messages
-    local excapedarg = string.gsub(message, "%|", "%%");
-    GMGenie.showGMMessage("1: " .. excapedarg);
-
     -- check for system messages of interest
-    if (event == "CHAT_MSG_SYSTEM") then
+    if (event == "CHAT_MSG_SYSTEM" and message ~= nil) then
+        -- development code to analize chat messages
+        local excapedarg = string.gsub(message, "%|", "%%");
+        GMGenie.showGMMessage("1: " .. excapedarg);
+
         -- Showing list of open tickets whose creator is online.
         if string.find(message, "Showing list of open tickets") then
             Chronos.scheduleByName('ticketreupdate', 0.5, GMGenie.Tickets.update);
