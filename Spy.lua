@@ -125,6 +125,7 @@ end
 --- @param message string
 --- @return boolean
 function Spy.handlePlayerInfoResponse(message)
+    GMGenie.showGMMessage("Spy - handling message: " .. message);
     if string.find(message, "Character .* does not exist") then
         GMGenie.CommandBus.unregisterMessageHandler(Spy.handlePlayerInfoResponse);
         return false;
