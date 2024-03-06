@@ -1,42 +1,42 @@
 --- @class Spy
 local Spy = {
     playerInfo = {
-        --- @type string|nil
-        accountName = nil,
-        --- @type string|nil
-        accountId = nil,
-        --- @type string|nil
-        race = nil,
-        --- @type string|nil
-        class = nil,
-        --- @type string|nil
-        emailAdress = nil,
-        --- @type string|nil
-        gmLevel = nil,
-        --- @type string|nil
-        guid = nil,
-        --- @type string|nil
-        guild = nil,
-        --- @type string|nil
-        ip = nil,
-        --- @type string|nil
-        latency = nil,
-        --- @type string|nil
-        level = nil,
-        --- @type string|nil
-        location = nil,
-        --- @type string|nil
-        lastLogin = nil,
-        --- @type string|nil
-        failedLogins = nil,
-        --- @type string|nil
-        money = nil,
-        --- @type string|nil
-        characterName = nil,
-        --- @type string|nil
-        phase = nil,
-        --- @type string|nil
-        totalPlayTime = nil
+        --- @type string
+        accountName = "",
+        --- @type string
+        accountId = "",
+        --- @type string
+        race = "",
+        --- @type string
+        class = "",
+        --- @type string
+        emailAdress = "",
+        --- @type string
+        gmLevel = "",
+        --- @type string
+        guid = "",
+        --- @type string
+        guild = "",
+        --- @type string
+        ip = "",
+        --- @type string
+        latency = "",
+        --- @type string
+        level = "",
+        --- @type string
+        location = "",
+        --- @type string
+        lastLogin = "",
+        --- @type string
+        failedLogins = "",
+        --- @type string
+        money = "",
+        --- @type string
+        characterName = "",
+        --- @type string
+        phase = "",
+        --- @type string
+        totalPlayTime = ""
     }
 };
 
@@ -85,7 +85,7 @@ end
 function Spy.reset()
     -- Set all values in the table Spy.playerInfo to nil
     for key, _ in pairs(Spy.playerInfo) do
-        Spy.playerInfo[key] = nil;
+        Spy.playerInfo[key] = "";
     end
 
     Spy.updateUI();
