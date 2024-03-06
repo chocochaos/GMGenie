@@ -7,6 +7,7 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
             shouldMessageBeSuppressedInChat = messageHandler(message);
 
             if shouldMessageBeSuppressedInChat then
+                GMGenie.showGMMessage('Message handler handled: ' ~ message);
                 break;
             end
         end

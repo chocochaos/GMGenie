@@ -317,7 +317,7 @@ function GMGenie.Tickets.loadTicket(ticketId, num)
                 SendChatMessage(".ticket viewid " .. ticketId, "GUILD");
                 -- open spy
                 if GMGenie_SavedVars.useSpy then
-                    GMGenie.Spy.spy(GMGenie.Tickets.currentTicket["name"]);
+                    GMGenie.Spy.execute(GMGenie.Tickets.currentTicket["name"]);
                 end
                 -- mark as read
                 GMGenie.Tickets.markAsRead(ticketId);
@@ -401,7 +401,7 @@ function GMGenie.Tickets.showMessage()
 end
 
 function GMGenie.Tickets.close()
-    if GMGenie.Spy.currentRequest["name"] == GMGenie.Tickets.currentTicket["name"] then
+    if GMGenie.Spy.playerInfo.characterName == GMGenie.Tickets.currentTicket["name"] then
         GMGenie_Spy_InfoWindow:Hide();
     end
     SendAddonMessage("GMGenie_Sync", "0", "GUILD");
