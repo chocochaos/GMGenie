@@ -133,7 +133,7 @@ function Spy.handlePlayerInfoResponse(message)
         return false;
     end
 
-    local isPlayerInfoMessage = GMGenie.messageStartsWithPipe(message);
+    local isPlayerInfoMessage = GMGenie.messageStartsWithBrokenBar(message);
     if not isPlayerInfoMessage then
         GMGenie.showGMMessage("Spy: this is not a playerinfo message");
         return false;

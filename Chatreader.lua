@@ -201,7 +201,7 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
     end
 end
 
-function GMGenie.messageStartsWithPipe(message)
+function GMGenie.messageStartsWithBrokenBar(message)
     local firstCharacter = string.sub(message, 1, 1);
-    return firstCharacter == '|';
+    return firstCharacter == '¦';
 end

@@ -58,7 +58,7 @@ function GMGenie.Hud.handleGmStatusResponse(message)
         GMGenie.CommandBus.unregisterMessageHandler("Hud.readGmStatusHandler");
         return false;
     end
-    local isPlayerInfoMessage = GMGenie.messageStartsWithPipe(message);
+    local isPlayerInfoMessage = GMGenie.messageStartsWithBrokenBar(message);
     if isPlayerInfoMessage then
         local gmModeActive = string.find(message, "(GM Mode active)");
         if gmModeActive then
