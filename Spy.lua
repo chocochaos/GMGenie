@@ -293,7 +293,7 @@ Spy.PlayerInfoLineHandlers = {
             if zone ~= nil and string.upper(zone) ~= '<UNKNOWN>' and map ~= zone then
                 fullLocation = zone .. ', ' .. fullLocation;
             end
-            if area ~= nil and map ~= area and zone ~= area then
+            if area ~= nil and string.upper(area) ~= '<UNKNOWN>' and map ~= area and zone ~= area then
                 fullLocation = area .. ', ' .. fullLocation;
             end
 
