@@ -14,9 +14,9 @@
 ## SavedVariables: GMGenie_SavedVars
 GMGenie.xml
 Chronos\Chronos.xml
+GMGenie.lua
 CommandBus.lua
 MessageHandler.lua
-GMGenie.lua
 Savedvariables.lua
 Chatreader.lua
 Hud.lua

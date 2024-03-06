@@ -4,6 +4,8 @@ local CommandBus = {
     responseHandlers = {}
 }
 
+GMGenie.CommandBus = CommandBus;
+
 function CommandBus.dispatch(command)
     -- Using the guild channel to prevent messages being broadcast publicly
     -- in case the server does not interpret the message as a command
@@ -26,5 +28,3 @@ end
 function CommandBus.unregisterMessageHandler(responseHandler)
     CommandBus.responseHandlers[responseHandler] = nil;
 end
-
-GMGenie.CommandBus = CommandBus
