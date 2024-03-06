@@ -202,7 +202,6 @@ function ChatFrame_MessageEventHandler(self, event, message, ...)
 end
 
 function GMGenie.messageStartsWithBrokenBar(message)
-    local firstCharacter = string.sub(message, 1, 1);
-    GMGenie.showGMMessage("First character: " .. firstCharacter);
+    local firstCharacter = string.sub(message, 1, 2);
     return firstCharacter == '¦';
 end
