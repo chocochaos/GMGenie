@@ -127,12 +127,14 @@ end
 function Spy.handlePlayerInfoResponse(message)
     GMGenie.showGMMessage("Spy - handling message: " .. message);
     if string.find(message, "Character .* does not exist") then
+        GMGenie.showGMMessage("Spy: character not found");
         GMGenie.CommandBus.unregisterMessageHandler(Spy.handlePlayerInfoResponse);
         return false;
     end
 
     local isPlayerInfoMessage = GMGenie.messageStartsWithPipe(message);
     if not isPlayerInfoMessage then
+        GMGenie.showGMMessage("Spy: this is not a playerinfo message");
         return false;
     end
 
@@ -140,6 +142,7 @@ function Spy.handlePlayerInfoResponse(message)
         local lineWasParsed = lineHandler(message);
 
         if lineWasParsed then
+            GMGenie.showGMMessage("Spy: line was parsed");
             Spy.updateUI();
             return true;
         end
