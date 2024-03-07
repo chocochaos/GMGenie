@@ -15,8 +15,8 @@
 GMGenie.xml
 Chronos\Chronos.xml
 GMGenie.lua
-CommandBus.lua
-MessageHandler.lua
+Core\Includes.xml
+Modules\Spy\Includes.xml
 Savedvariables.lua
 Chatreader.lua
 Hud.lua
@@ -31,8 +31,6 @@ Tickets.lua
 Tickets.xml
 Spawns.lua
 Spawns.xml
-Spy.lua
-Spy.xml
 Options\GMGenie.lua
 Options\GMGenie.xml
 Options\Tickets.lua

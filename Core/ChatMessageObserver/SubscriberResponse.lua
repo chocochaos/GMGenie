@@ -1,0 +1,2 @@
+--- @class ChatMessageSubscriberResponse
+--- @field stopPropagation boolean Should the message be propagated to other subscribers, including the in-game chat?

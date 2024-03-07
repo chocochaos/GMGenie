@@ -1,0 +1,9 @@
+--- @class AccountInfo
+--- @field accountName string
+--- @field accountId number
+--- @field emailAdress string|nil
+--- @field gmLevel number
+--- @field ip string
+--- @field latency number
+--- @field lastLogin string
+--- @field failedLogins number

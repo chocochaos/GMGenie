@@ -45,7 +45,7 @@ function GMGenie.Hud.checkStatus()
     SendChatMessage(".whispers", "GUILD");
 
     GMGenie.Hud.hasFoundGmStatus = false;
-    GMGenie.CommandBus.dispatchAndReadResponse(
+    GMGenie.Publisher.dispatchAndSubscribe(
         ".pin " .. UnitName("player"),
         "Hud.handleGmStatusResponse",
         GMGenie.Hud.handleGmStatusResponse
@@ -55,7 +55,7 @@ end
 
 function GMGenie.Hud.handleGmStatusResponse(message)
     if string.find(message, "Character .* does not exist") then
-        GMGenie.CommandBus.unregisterMessageHandler("Hud.handleGmStatusResponse");
+        GMGenie.Publisher.unsubscribe("Hud.handleGmStatusResponse");
         return false;
     end
     local isPlayerInfoMessage = GMGenie.messageStartsWithBrokenBar(message);
@@ -68,7 +68,7 @@ function GMGenie.Hud.handleGmStatusResponse(message)
 
         local isLastMessage = string.find(message, "Played time: (.*)");
         if isLastMessage then
-            GMGenie.CommandBus.unregisterMessageHandler("Hud.handleGmStatusResponse");
+            GMGenie.Publisher.unsubscribe("Hud.handleGmStatusResponse");
 
             if not GMGenie.Hud.hasFoundGmStatus then
                 GMGenie.Hud.gmStatus(false);

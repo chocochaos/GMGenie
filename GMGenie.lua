@@ -5,9 +5,6 @@
 --Game Master Genie is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 --You should have received a copy of the GNU General Public License along with Game Master Genie. If not, see <http://www.gnu.org/licenses/>.
 
---- @class GMGenie
---- @field CommandBus CommandBus
---- @field Spy Spy
 GMGenie = {
     debug = false,
 };
@@ -25,6 +22,12 @@ function GMGenie.printDebugMessage(message)
     end
 
     DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000[GMGenie DEBUG]|cffffffff: " .. message);
+end
+
+--- @param message string
+--- @return nil
+function GMGenie.printErrorMessage(message)
+    DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000[GMGenie ERROR]|cffffffff: " .. message);
 end
 
 function GMGenie.pairsByKeys(t, f)

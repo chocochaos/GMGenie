@@ -1,0 +1,2 @@
+--- @class GuildInfo
+--- @field guildName string|nil
