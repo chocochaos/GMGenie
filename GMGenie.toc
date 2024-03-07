@@ -22,7 +22,7 @@ Core\ChatMessageObserver\Bootstrap.lua
 Core\Readers\Reader.lua
 Core\Readers\PlayerInfo\PlayerInfoReader.lua
 Modules\Spy\Spy.lua
-Modules\Spu\Spy.xml
+Modules\Spy\Spy.xml
 Savedvariables.lua
 Chatreader.lua
 Hud.lua
