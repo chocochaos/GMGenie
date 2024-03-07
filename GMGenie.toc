@@ -15,8 +15,14 @@
 GMGenie.xml
 Chronos\Chronos.xml
 GMGenie.lua
-Core\Includes.xml
-Modules\Spy\Includes.xml
+Core\Functions.lua
+Core\GMCommandDispatcher.lua
+Core\ChatMessageObserver\Publisher.lua
+Core\ChatMessageObserver\Bootstrap.lua
+Core\Readers\Reader.lua
+Core\Readers\PlayerInfo\PlayerInfoReader.lua
+Modules\Spy\Spy.lua
+Modules\Spu\Spy.xml
 Savedvariables.lua
 Chatreader.lua
 Hud.lua
