@@ -10,6 +10,10 @@ GMGenie.ChatMessagePublisher = ChatMessagePublisher;
 --- @param subscriber ChatMessageSubscriber
 function ChatMessagePublisher.subscribe(subscriptionKey, subscriber)
     GMGenie.printDebugMessage("Subscribed: " .. subscriptionKey);
+
+    if not ChatMessagePublisher.subscribersByKey[subscriptionKey] then
+        ChatMessagePublisher.subscribersByKey[subscriptionKey] = {};
+    end
     table.insert(ChatMessagePublisher.subscribersByKey[subscriptionKey], subscriber);
 end
 
