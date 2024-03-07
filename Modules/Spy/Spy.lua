@@ -108,27 +108,27 @@ end
 
 --- @return nil
 function Spy.updateDataInUI()
-    GMGenie_Spy_InfoWindow_Info_CharInfo:SetText("Level " .. Spy.state.playerInfo.level .. " " .. Spy.state.playerInfo.race .. " " .. Spy.state.playerInfo.class);
-    GMGenie_Spy_InfoWindow_Info_Guild:SetText(Spy.state.playerInfo.guild);
-    GMGenie_Spy_InfoWindow_Title_Text:SetText(Spy.state.playerInfo.characterName);
-    GMGenie_Spy_InfoWindow_Character_Name:SetText(Spy.state.playerInfo.characterName);
-    GMGenie_Spy_InfoWindow_Character_Id:SetText(Spy.state.playerInfo.guid);
-    GMGenie_Spy_InfoWindow_Account_Name:SetText(Spy.state.playerInfo.accountName);
-    GMGenie_Spy_InfoWindow_Account_Id:SetText(Spy.state.playerInfo.accountId);
-    GMGenie_Spy_InfoWindow_Email_Email:SetText(Spy.state.playerInfo.emailAdress);
-    GMGenie_Spy_InfoWindow_IpLat_Ip:SetText(Spy.state.playerInfo.ip);
-    if tonumber(Spy.state.playerInfo.latency) and tonumber(Spy.state.playerInfo.latency) > 1000 then
+    GMGenie_Spy_InfoWindow_Info_CharInfo:SetText("Level " .. Spy.character.level .. " " .. Spy.character.race .. " " .. Spy.character.class);
+    GMGenie_Spy_InfoWindow_Info_Guild:SetText(tostring(Spy.guild.guildName));
+    GMGenie_Spy_InfoWindow_Title_Text:SetText(Spy.character.characterName);
+    GMGenie_Spy_InfoWindow_Character_Name:SetText(Spy.character.characterName);
+    GMGenie_Spy_InfoWindow_Character_Id:SetText(tostring(Spy.character.characterId));
+    GMGenie_Spy_InfoWindow_Account_Name:SetText(Spy.account.accountName);
+    GMGenie_Spy_InfoWindow_Account_Id:SetText(tostring(Spy.account.accountId));
+    GMGenie_Spy_InfoWindow_Email_Email:SetText(tostring(Spy.account.emailAdress));
+    GMGenie_Spy_InfoWindow_IpLat_Ip:SetText(Spy.account.ip);
+    if tonumber(Spy.account.latency) and tonumber(Spy.account.latency) > 1000 then
         GMGenie_Spy_InfoWindow_IpLat_Latency:SetFontObject(GenieFontRedSmall);
     else
         GMGenie_Spy_InfoWindow_IpLat_Latency:SetFontObject(GenieFontHighlightSmall);
     end
-    GMGenie_Spy_InfoWindow_IpLat_Latency:SetText(Spy.state.playerInfo.latency);
-    GMGenie_Spy_InfoWindow_LastLogin_LastLogin:SetText(Spy.state.playerInfo.lastLogin);
-    GMGenie_Spy_InfoWindow_PlayedGM_PlayedTime:SetText(Spy.state.playerInfo.totalPlayTime);
-    GMGenie_Spy_InfoWindow_PlayedGM_GM:SetText(Spy.state.playerInfo.gmLevel);
-    GMGenie_Spy_InfoWindow_MoneyPhase_Money:SetText(Spy.state.playerInfo.money);
-    GMGenie_Spy_InfoWindow_MoneyPhase_Phase:SetText(Spy.state.playerInfo.phase);
-    GMGenie_Spy_InfoWindow_Location_Location:SetText(Spy.state.playerInfo.location);
+    GMGenie_Spy_InfoWindow_IpLat_Latency:SetText(tostring(Spy.account.latency));
+    GMGenie_Spy_InfoWindow_LastLogin_LastLogin:SetText(Spy.account.lastLogin);
+    GMGenie_Spy_InfoWindow_PlayedGM_PlayedTime:SetText(Spy.character.totalPlayTime);
+    GMGenie_Spy_InfoWindow_PlayedGM_GM:SetText(tostring(Spy.account.gmLevel));
+    GMGenie_Spy_InfoWindow_MoneyPhase_Money:SetText(Spy.character.money);
+    GMGenie_Spy_InfoWindow_MoneyPhase_Phase:SetText(tostring(Spy.character.phase));
+    GMGenie_Spy_InfoWindow_Location_Location:SetText(Spy.character.location);
     -- Scroll the location field to the left, in case it overflows.
     GMGenie_Spy_InfoWindow_Location_Location:SetCursorPosition(0);
 
@@ -155,61 +155,61 @@ SLASH_SPY1 = "/spy";
 SlashCmdList["SPY"] = Spy.execute;
 
 function Spy.whisper()
-    ChatFrame_SendTell(Spy.state.playerInfo.characterName);
+    ChatFrame_SendTell(Spy.character.characterName);
 end
 
 function Spy.summon()
-    GMGenie.Macros.summon(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.summon(Spy.character.characterName);
 end
 
 function Spy.appear()
-    GMGenie.Macros.appear(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.appear(Spy.character.characterName);
 end
 
 function Spy.revive()
-    GMGenie.Macros.revive(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.revive(Spy.character.characterName);
 end
 
 function Spy.freeze()
-    GMGenie.Macros.freeze(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.freeze(Spy.character.characterName);
 end
 
 function Spy.unfreeze()
-    GMGenie.Macros.unfreeze(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.unfreeze(Spy.character.characterName);
 end
 
 function Spy.rename()
-    GMGenie.Macros.rename(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.rename(Spy.character.characterName);
 end
 
 function Spy.antiCheatPlayer()
-    GMGenie.Macros.antiCheatPlayer(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.antiCheatPlayer(Spy.character.characterName);
 end
 
 function Spy.customize()
-    GMGenie.Macros.customize(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.customize(Spy.character.characterName);
 end
 
 function Spy.changefaction()
-    GMGenie.Macros.changefaction(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.changefaction(Spy.character.characterName);
 end
 
 function Spy.changerace()
-    GMGenie.Macros.changerace(Spy.state.playerInfo.characterName);
+    GMGenie.Macros.changerace(Spy.character.characterName);
 end
 
 function Spy.banInfo()
     CloseDropDownMenus()
-    SendChatMessage(".baninfo account " .. Spy.state.playerInfo.accountName, "GUILD");
-    SendChatMessage(".baninfo character " .. Spy.state.playerInfo.characterName, "GUILD");
-    SendChatMessage(".baninfo ip " .. Spy.state.playerInfo.ip, "GUILD");
+    SendChatMessage(".baninfo account " .. Spy.character.accountName, "GUILD");
+    SendChatMessage(".baninfo character " .. Spy.character.characterName, "GUILD");
+    SendChatMessage(".baninfo ip " .. Spy.character.ip, "GUILD");
 end
 
 function Spy.lookupPlayer()
     CloseDropDownMenus()
-    SendChatMessage(".lookup player account " .. Spy.state.playerInfo.accountName, "GUILD");
-    SendChatMessage(".lookup player email " .. Spy.state.playerInfo.emailAdress, "GUILD");
-    SendChatMessage(".lookup player ip " .. Spy.state.playerInfo.ip, "GUILD");
+    SendChatMessage(".lookup player account " .. Spy.character.accountName, "GUILD");
+    SendChatMessage(".lookup player email " .. Spy.character.emailAdress, "GUILD");
+    SendChatMessage(".lookup player ip " .. Spy.character.ip, "GUILD");
 end
 
 local Saved_SetItemRef = SetItemRef;
