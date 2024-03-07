@@ -473,7 +473,7 @@ function GMGenie.Tickets.setComment()
 end
 
 function GMGenie.Tickets.toggleSpy()
-    if GMGenie_Spy_InfoWindow:IsVisible() and GMGenie.Tickets.currentTicket["name"] == GMGenie.Spy.currentRequest["name"] then
+    if GMGenie_Spy_InfoWindow:IsVisible() and GMGenie.Tickets.currentTicket["name"] == GMGenie.Spy.character.characterName then
         GMGenie_Spy_InfoWindow:Hide();
     else
         GMGenie.Spy.execute(GMGenie.Tickets.currentTicket["name"]);
