@@ -37,6 +37,8 @@ end
 
 --- @param reader ReaderConfiguration
 function Reader.attachReader(reader)
+    GMGenie.printDebugMessage("Attaching reader: " .. reader.identifier);
+
     Reader.attachedReaders[reader.identifier] = reader;
 
     table.foreach(
@@ -59,6 +61,8 @@ function Reader.attachReader(reader)
 end
 
 function Reader.detachReader(reader)
+    GMGenie.printDebugMessage("Detaching reader: " .. reader.identifier);
+
     Chronos.unscheduleByName(
         Reader.getTimeoutScheduleKey(reader)
     );
@@ -91,6 +95,8 @@ end
 --- @param errorMessage string
 --- @return nil
 function Reader.reportError(readerIdentifier, errorMessage)
+    GMGenie.printDebugMessage("Reader error: " .. errorMessage .. " for " .. readerIdentifier);
+
     local reader = Reader.attachedReaders[readerIdentifier];
     if not reader then
         GMGenie.printErrorMessage("ReaderStateManager.reportError: Reader not found for identifier " .. readerIdentifier);
@@ -106,6 +112,8 @@ end
 --- @param readerIdentifier string
 --- @return nil
 function Reader.reportSuccess(readerIdentifier)
+    GMGenie.printDebugMessage("Reader success for " .. readerIdentifier);
+
     local reader = Reader.attachedReaders[readerIdentifier];
     if not reader then
         GMGenie.printErrorMessage("ReaderStateManager.reportError: Reader not found for identifier " .. readerIdentifier);
