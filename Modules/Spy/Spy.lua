@@ -99,11 +99,11 @@ function Spy.resolveCharacterName(characterName)
 end
 
 function Spy.openWindow()
-    GMGenie.Spy_InfoWindow:Show();
+    GMGenie_Spy_InfoWindow:Show();
 end
 
 function Spy.closeWindow()
-    GMGenie.Spy_InfoWindow:Hide();
+    GMGenie_Spy_InfoWindow:Hide();
 end
 
 --- @return nil
