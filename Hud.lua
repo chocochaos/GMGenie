@@ -44,39 +44,15 @@ function GMGenie.Hud.checkStatus()
     SendChatMessage(".gm visible", "GUILD");
     SendChatMessage(".whispers", "GUILD");
 
-    GMGenie.Hud.hasFoundGmStatus = false;
-    GMGenie.Publisher.dispatchAndSubscribe(
-        ".pin " .. UnitName("player"),
-        "Hud.handleGmStatusResponse",
-        GMGenie.Hud.handleGmStatusResponse
+    GMGenie.Reader.PlayerInfo.read(
+        UnitName("player"),
+        function(retrievedData)
+            GMGenie.Hud.gmStatus(retrievedData.isGmModeActive);
+        end,
+        function(errorMessage)
+            GMGenie.printErrorMessage(errorMessage);
+        end
     );
-    SendChatMessage(".pin " .. UnitName("player"), "GUILD");
-end
-
-function GMGenie.Hud.handleGmStatusResponse(message)
-    if string.find(message, "Character .* does not exist") then
-        GMGenie.Publisher.unsubscribe("Hud.handleGmStatusResponse");
-        return false;
-    end
-    local isPlayerInfoMessage = GMGenie.messageStartsWithBrokenBar(message);
-    if isPlayerInfoMessage then
-        local gmModeActive = string.find(message, "(GM Mode active)");
-        if gmModeActive then
-            GMGenie.Hud.gmStatus(true);
-            GMGenie.Hud.hasFoundGmStatus = true;
-        end
-
-        local isLastMessage = string.find(message, "Played time: (.*)");
-        if isLastMessage then
-            GMGenie.Publisher.unsubscribe("Hud.handleGmStatusResponse");
-
-            if not GMGenie.Hud.hasFoundGmStatus then
-                GMGenie.Hud.gmStatus(false);
-            end
-        end
-
-        return true;
-    end
 end
 
 function GMGenie.Hud.gmStatus(status)

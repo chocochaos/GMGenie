@@ -55,6 +55,7 @@ end
 
 --- @return PlayerInfo
 function PlayerInfoReader.getFinalRetrievedData()
+    --- @type PlayerInfo
     return {
         accountName = PlayerInfoReader.retrievedData.accountName or "",
         accountId = PlayerInfoReader.retrievedData.accountId or 0,
@@ -73,8 +74,8 @@ function PlayerInfoReader.getFinalRetrievedData()
         money = PlayerInfoReader.retrievedData.money or "",
         phase = PlayerInfoReader.retrievedData.phase or 0,
         totalPlayTime = PlayerInfoReader.retrievedData.totalPlayTime or "",
+        isGmModeActive = PlayerInfoReader.retrievedData.isGmModeActive or false,
         guild = PlayerInfoReader.retrievedData.guildName,
-
     };
 end
 
@@ -109,9 +110,14 @@ PlayerInfoReader.subscribers = {
     },
     {
         onSystemMessage = function(message)
-            local phase = string.match(message, "Phase: (.*)");
+            local gmModeActive, phase = string.match(message, "(GM Mode active, )?Phase: (.*)");
 
-            if phase then
+            if gmModeActive or phase then
+                if gmModeActive then
+                    PlayerInfoReader.retrievedData.isGmModeActive = true;
+                else
+                    PlayerInfoReader.retrievedData.isGmModeActive = false;
+                end
                 PlayerInfoReader.retrievedData.phase = phase;
 
                 return {stopPropagation = true};

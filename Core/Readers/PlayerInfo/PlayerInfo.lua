@@ -16,4 +16,5 @@
 --- @field money string
 --- @field phase number
 --- @field totalPlayTime string
+--- @field isGmModeActive boolean
 --- @field guildName string|nil
