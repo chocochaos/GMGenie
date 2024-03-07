@@ -113,8 +113,8 @@ PlayerInfoReader.subscribers = {
             local phase = string.match(message, "Phase: (.*)");
 
             if phase then
-                local isGmModeActuive = string.find(message, "GM Mode active") ~= nil;
-                PlayerInfoReader.retrievedData.isGmModeActive = isGmModeActuive;
+                local isGmModeActive = string.find(message, "GM Mode active") ~= nil;
+                PlayerInfoReader.retrievedData.isGmModeActive = isGmModeActive;
                 PlayerInfoReader.retrievedData.phase = phase;
 
                 return {stopPropagation = true};

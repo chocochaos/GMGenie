@@ -125,5 +125,5 @@ function Reader.reportSuccess(readerIdentifier)
     local retrievedData = reader.getFinalRetrievedData();
     Reader.reset(reader);
 
-    reader.onSuccess(reader.getFinalRetrievedData());
+    reader.onSuccess(retrievedData);
 end
