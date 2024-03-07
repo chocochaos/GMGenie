@@ -108,6 +108,10 @@ end
 
 --- @return nil
 function Spy.updateDataInUI()
+    if not Spy.character or not Spy.account or not Spy.guild then
+        return ;
+    end
+
     GMGenie_Spy_InfoWindow_Info_CharInfo:SetText(
         "Level " .. (Spy.character.level or 0)
         .. " " .. (Spy.character.race or "")
