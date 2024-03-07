@@ -110,14 +110,11 @@ PlayerInfoReader.subscribers = {
     },
     {
         onSystemMessage = function(message)
-            local gmModeActive, phase = string.match(message, "(GM Mode active, )?Phase: (.*)");
+            local phase = string.match(message, "Phase: (.*)");
 
-            if gmModeActive or phase then
-                if gmModeActive then
-                    PlayerInfoReader.retrievedData.isGmModeActive = true;
-                else
-                    PlayerInfoReader.retrievedData.isGmModeActive = false;
-                end
+            if phase then
+                local isGmModeActuive = string.find(message, "GM Mode active") ~= nil;
+                PlayerInfoReader.retrievedData.isGmModeActive = isGmModeActuive;
                 PlayerInfoReader.retrievedData.phase = phase;
 
                 return {stopPropagation = true};
