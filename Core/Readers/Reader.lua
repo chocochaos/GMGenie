@@ -104,9 +104,9 @@ function Reader.reportError(readerIdentifier, errorMessage)
         return;
     end
 
-    reader.onError(errorMessage);
-
     Reader.reset(reader);
+
+    reader.onError(errorMessage);
 end
 
 --- @param readerIdentifier string
