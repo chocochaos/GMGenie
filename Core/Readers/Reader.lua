@@ -121,7 +121,9 @@ function Reader.reportSuccess(readerIdentifier)
         return;
     end
 
-    reader.onSuccess(reader.getFinalRetrievedData());
-
+    -- First reset, then trigger onSuccess, to prevent concurrency issues with chained reads.
+    local retrievedData = reader.getFinalRetrievedData();
     Reader.reset(reader);
+
+    reader.onSuccess(reader.getFinalRetrievedData());
 end
