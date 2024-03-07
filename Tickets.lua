@@ -401,7 +401,7 @@ function GMGenie.Tickets.showMessage()
 end
 
 function GMGenie.Tickets.close()
-    if GMGenie.Spy.playerInfo.characterName == GMGenie.Tickets.currentTicket["name"] then
+    if GMGenie.Spy.character.characterName == GMGenie.Tickets.currentTicket["name"] then
         GMGenie_Spy_InfoWindow:Hide();
     end
     SendAddonMessage("GMGenie_Sync", "0", "GUILD");
