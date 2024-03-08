@@ -40,10 +40,19 @@ end
 ------------ HUD status functionality ------------
 --------------------------------------------------
 function GMGenie.Hud.checkStatus()
-    SendChatMessage(".gm", "GUILD");
     SendChatMessage(".gm chat", "GUILD");
     SendChatMessage(".gm visible", "GUILD");
     SendChatMessage(".whispers", "GUILD");
+
+    GMGenie.Reader.PlayerInfo.read(
+        UnitName("player"),
+        function(retrievedData)
+            GMGenie.Hud.gmStatus(retrievedData.isGmModeActive);
+        end,
+        function(errorMessage)
+            GMGenie.printErrorMessage(errorMessage);
+        end
+    );
 end
 
 function GMGenie.Hud.gmStatus(status)

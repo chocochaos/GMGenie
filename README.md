@@ -22,8 +22,8 @@ Installation Instructions
 
 Download the addon using one of the links above and extract it to the interface/addons directory in your WoW installation. When logging in, the addon should be enabled by default.
 
-**Supported emulators:** TrinityCore (3.3.5 and 4.3.4)
-**Supported client versions:** 3.3.5 and 4.3.4
+**Supported emulators:** AzeorothCore
+**Supported client versions:** 3.3.5a
 **Supported client locales:** enUS and enGB
 
 
@@ -90,7 +90,10 @@ You can drop me an e-mail at gmgenie [at] chocochaos [dot] com
 
 It's not a requirement to inform me, but I would appreciate it =)
 
-
+Credits
+-------
+- Chocochaos - Original Author
+- Duskhaven Reforged Team - Updated to work with AzerothCore
 
 Changelog
 -------

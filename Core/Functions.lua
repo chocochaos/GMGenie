@@ -1,0 +1,3 @@
+GMGenie.Functions = {
+    
+};

@@ -5,11 +5,29 @@
 --Game Master Genie is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 --You should have received a copy of the GNU General Public License along with Game Master Genie. If not, see <http://www.gnu.org/licenses/>.
 
-GMGenie = {};
+GMGenie = {
+    debug = false,
+};
 GMGenie_SavedVars = {};
 
 function GMGenie.showGMMessage(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000[GMGenie]|cffffffff: " .. msg);
+end
+
+--- @param message string
+--- @return nil
+function GMGenie.printDebugMessage(message)
+    if not GMGenie.debug then
+        return;
+    end
+
+    DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000[GMGenie DEBUG]|cffffffff: " .. message);
+end
+
+--- @param message string
+--- @return nil
+function GMGenie.printErrorMessage(message)
+    DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000[GMGenie ERROR]|cffffffff: " .. message);
 end
 
 function GMGenie.pairsByKeys(t, f)
@@ -60,7 +78,7 @@ function GMGenie.onLoad()
     GMGenie.Tickets.onLoad();
 
     -- Please do not remove the copyright notice, it would be a violation of the gpl.
-    GMGenie.showGMMessage("GMGenie 0.7.3 by Chocochaos ((c) 2011-2014). The latest version of GM Genie can always be found at http://chocochaos.com/gmgenie/");
+    GMGenie.showGMMessage("GMGenie 1.0.0 by Chocochaos ((c) 2011-2014) modified for AzerothCore. Latest version adopted to AzerothCore can be found here: https://github.com/azerothcore/GMGenie/tags");
 end
 
 local frame = CreateFrame("FRAME");

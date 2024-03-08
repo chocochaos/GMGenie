@@ -5,16 +5,24 @@
 # Game Master Genie is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 # You should have received a copy of the GNU General Public License along with Game Master Genie. If not, see <http://www.gnu.org/licenses/>.
 
-## Interface: 40300
+## Interface: 30300
 ## Title: GM Genie
-## Note: Game Master Genie v0.7.3 by Chocochaos
+## Note: Game Master Genie v1.0.0-AzerothCore by Chocochaos
 ## Author: Chocochaos
-## Version: 0.7.3
+## Version: 1.0.0-AzerothCore
 ## DefaultState: Enabled
 ## SavedVariables: GMGenie_SavedVars
 GMGenie.xml
 Chronos\Chronos.xml
 GMGenie.lua
+Core\Functions.lua
+Core\GMCommandDispatcher.lua
+Core\ChatMessageObserver\Publisher.lua
+Core\ChatMessageObserver\Bootstrap.lua
+Core\Readers\Reader.lua
+Core\Readers\PlayerInfo\PlayerInfoReader.lua
+Modules\Spy\Spy.lua
+Modules\Spy\Spy.xml
 Savedvariables.lua
 Chatreader.lua
 Hud.lua
@@ -29,8 +37,6 @@ Tickets.lua
 Tickets.xml
 Spawns.lua
 Spawns.xml
-Spy.lua
-Spy.xml
 Options\GMGenie.lua
 Options\GMGenie.xml
 Options\Tickets.lua

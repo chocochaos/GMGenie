@@ -1,0 +1,5 @@
+--- Subscribers are notified by the publisher when a chat message is sent.
+--- The subscriber can then act on the message, if needed.
+---
+--- @class ChatMessageSubscriber
+--- @field onSystemMessage nil|fun(message: string):ChatMessageSubscriberResponse Implement this method to subscribe to system messages.

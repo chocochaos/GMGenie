@@ -1,0 +1,8 @@
+--- @class ReaderConfiguration
+--- @field identifier string A unique identifier for this reader.
+--- @field gmCommand string
+--- @field subscribers ChatMessageSubscriber[]
+--- @field resetState fun(): nil
+--- @field getFinalRetrievedData fun(): any
+--- @field onSuccess fun(retrievedData: any): nil
+--- @field onError fun(message: string): nil
